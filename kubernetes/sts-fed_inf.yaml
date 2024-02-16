@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: fed-inf-sts
+spec:
+  replicas: 3  # Defina o número de réplicas desejado
+  serviceName: "fed-inf"  # Nome do serviço associado
+  selector:
+    matchLabels:
+      app: fed-inf
+  template:
+    metadata:
+      labels:
+        app: fed-inf
+    spec:
+      containers:
+      - name: fed-inf
+        image: moreirar/fed_inf:latest
+        ports:
+        - containerPort: 5001
+        imagePullPolicy: IfNotPresent  # Adicionando a política de pull IfNotPresent

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fed-inf-service
+spec:
+  selector:
+    app: fed-inf
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

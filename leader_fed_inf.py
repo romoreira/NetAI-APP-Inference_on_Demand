@@ -26,12 +26,5 @@ def process_text():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-async def main():
-    urls = ['http://example.com', 'http://example.org', 'http://example.net']
-    tasks = [fetch(url) for url in urls]
-    results = await asyncio.gather(*tasks)
-    for result in results:
-        print(result)
-
 if __name__ == "__main__":
     app.run(host='0.0.0.0', debug=True)
