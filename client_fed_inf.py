@@ -1,12 +1,14 @@
 import io
 import json
-
+import os
 from torchvision import models
 import torchvision.transforms as transforms
 from PIL import Image
 from flask import Flask, jsonify, request
 import torch.nn.functional as F
 
+# Obtendo o número da porta da variável de ambiente
+port = int(os.getenv("PORT_NUMBER", 5000))
 
 
 app = Flask(__name__)
@@ -47,4 +49,4 @@ def predict():
 
 
 if __name__ == '__main__':
-    app.run(app.run(host='0.0.0.0', port=5001, debug=True))
+    app.run(app.run(host='0.0.0.0', port=port, debug=True))
