@@ -5,5 +5,6 @@ RUN pip install torch==2.2.0 torchvision==0.17.0 flask==3.0.2
 WORKDIR /app
 # Copia os arquivos necessários para o diretório de trabalho
 COPY client_fed_inf.py ./
+COPY imagenet_class_index.json ./
 # Comando padrão para executar o script Python
 CMD ["python", "client_fed_inf.py"]
