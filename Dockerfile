@@ -1,5 +1,9 @@
 FROM python:3.8
+# Instalação dos pacotes necessários
+RUN pip install torch==2.2.0 torchvision==0.17.0 flask==3.0.2
+# Configuração do diretório de trabalho
 WORKDIR /app
-COPY client_fed_inf.py requirements.txt ./
-RUN pip install -r requirements.txt
+# Copia os arquivos necessários para o diretório de trabalho
+COPY client_fed_inf.py ./
+# Comando padrão para executar o script Python
 CMD ["python", "client_fed_inf.py"]
