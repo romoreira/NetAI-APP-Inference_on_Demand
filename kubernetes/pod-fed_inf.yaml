@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: leader-fed-inf
+  labels:
+    app: leader-fed-inf
+spec:
+  containers:
+  - name: leader-fed-inf
+    image: moreirar/leader_fed_inf:latest
+    imagePullPolicy: IfNotPresent  # Adicionando a política de pull IfNotPresent
+    ports:
+    - containerPort: 5000  # Porta em que o seu aplicativo Python está ouvindo
