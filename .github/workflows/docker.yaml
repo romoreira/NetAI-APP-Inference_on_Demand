@@ -19,7 +19,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          context: app/
+          context: ./FederatedInferencing
           file: ./Dockerfile
           push: true
           tags: moreirar/fed_inf:latest
