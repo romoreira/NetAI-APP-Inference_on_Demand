@@ -19,7 +19,7 @@ jobs:
       - name: Build and push image
         uses: docker/build-push-action@v4
         with:
-          context: ./
-          file: ./Dockerfile
+          context: .
+          file: Dockerfile
           push: true
           tags: moreirar/fed_inf:latest
