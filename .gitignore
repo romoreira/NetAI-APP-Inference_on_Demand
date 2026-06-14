@@ -1,0 +1,14 @@
+
+# Model checkpoints and heavy inference artifacts
+*.pth
+*.pt
+*.onnx
+*.engine
+*.trt
+*.ckpt
+
+# Local datasets and training runs
+/mnt/
+/data/
+/datasets/
+base_model_training/runs_flame2_resnet18/**/*.pth
