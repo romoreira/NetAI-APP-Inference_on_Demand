@@ -1,0 +1,14 @@
+apiVersion: k8s.cni.cncf.io/v1
+kind: NetworkAttachmentDefinition
+metadata:
+  name: n3-net
+spec:
+  # OVS bridge n3br -> enp7s0 (N3). Sem IPAM: cada pod-UE recebe seu IP
+  # estático no initContainer, derivado do ordinal do StatefulSet (.10-.19).
+  config: '{
+    "cniVersion": "0.3.1",
+    "type": "ovs",
+    "bridge": "n3br",
+    "mtu": 9000
+  }'
+

@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ue
+  labels:
+    app: ue
+spec:
+  replicas: 1                       # escale com: kubectl scale deploy/ue --replicas=N
+  selector:
+    matchLabels:
+      app: ue
+  template:
+    metadata:
+      labels:
+        app: ue
+      annotations:
+        k8s.v1.cni.cncf.io/networks: n3-net
+    spec:
+      # initContainer: configura net1 (IP + MTU jumbo). Como Deployment não tem
+      # ordinal estável, usa um IP fixo por enquanto (1 réplica). Ao escalar,
+      # trocar para derivação por índice (StatefulSet) ou IPAM.
+      initContainers:
+      - name: setup-n3
+        image: ue-split:local
+        imagePullPolicy: Never
+        command:
+        - sh
+        - -c
+        - |
+          ip addr add ${N3_IP}/24 dev net1 || true
+          ip link set net1 up
+          echo "net1: ${N3_IP}/24 (MTU $(cat /sys/class/net/net1/mtu))"
+          ip -br addr
+        env:
+        - name: N3_IP
+          value: "192.168.70.50"
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN", "NET_RAW"]
+        volumeMounts:
+        - name: dataset
+          mountPath: /data
+          readOnly: true
+      containers:
+      - name: ue
+        image: ue-split:local
+        imagePullPolicy: Never
+        command: ["sleep", "infinity"]   # dispara ue_sender via exec
+        securityContext:
+          capabilities:
+            add: ["NET_RAW", "NET_ADMIN"]
+        resources:
+          limits:
+            nvidia.com/gpu: 1            # 1 fatia time-sliced
+        env:
+        - name: TEID
+          value: "99"
+        - name: N3_SRC
+          value: "192.168.70.50"
+        - name: NEXT_HOP_MAC
+          value: "04:3f:72:fa:75:60"
+        volumeMounts:
+        - name: dataset
+          mountPath: /data             # dataset de teste, somente leitura
+          readOnly: true
+      volumes:
+      - name: dataset
+        hostPath:
+          path: /home/ubuntu/NetAI-APP-Inference_on_Demand/ue-side/dataset/test   # <-- AJUSTAR
+          type: Directory

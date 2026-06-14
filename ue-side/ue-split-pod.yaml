@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ue-split
+  annotations:
+    k8s.v1.cni.cncf.io/networks: n3-net
+spec:
+  restartPolicy: Never
+  # initContainer sobe a MTU da net1 para jumbo antes do container principal.
+  # Precisa de NET_ADMIN; usa a mesma imagem (tem iproute2).
+  initContainers:
+  - name: set-mtu
+    image: ue-split:local
+    imagePullPolicy: Never
+    command: ["sh", "-c", "ip link set net1 mtu 9000 || true; ip -br addr"]
+    securityContext:
+      capabilities:
+        add: ["NET_ADMIN", "NET_RAW"]
+  containers:
+  - name: ue
+    image: ue-split:local
+    imagePullPolicy: Never        # imagem buildada localmente, não puxar de registry
+    command: ["sleep", "infinity"]
+    securityContext:
+      capabilities:
+        add: ["NET_RAW", "NET_ADMIN"]   # NET_RAW p/ Scapy sendp; NET_ADMIN p/ MTU/rotas
+    resources:
+      limits:
+        nvidia.com/gpu: 1               # 1 fatia time-sliced
+

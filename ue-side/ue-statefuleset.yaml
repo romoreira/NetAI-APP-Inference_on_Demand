@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: ue
+spec:
+  serviceName: ue
+  replicas: 10                      # ue-0 .. ue-9  -> TEID 10..19, IP .10..19
+  podManagementPolicy: Parallel     # sobe os 10 de uma vez
+  selector:
+    matchLabels:
+      app: ue
+  template:
+    metadata:
+      labels:
+        app: ue
+      annotations:
+        k8s.v1.cni.cncf.io/networks: n3-net
+    spec:
+      # initContainer: deriva o ordinal do hostname (ue-N) e configura
+      # a net1 com IP estático 192.168.70.(10+N)/24 + MTU jumbo.
+      initContainers:
+      - name: setup-n3
+        image: ue-split:local
+        imagePullPolicy: Never
+        command:
+        - sh
+        - -c
+        - |
+          ORD=${HOSTNAME##*-}
+          LAST=$((10 + ORD))
+          ip link set net1 mtu 9000
+          ip addr add 192.168.70.${LAST}/24 dev net1 || true
+          ip link set net1 up
+          echo "net1 configurada: 192.168.70.${LAST}/24 (ordinal ${ORD})"
+          ip -br addr
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN", "NET_RAW"]
+      containers:
+      - name: ue
+        image: ue-split:local
+        imagePullPolicy: Never
+        command: ["sleep", "infinity"]   # dispara ue_sender manualmente via exec
+        securityContext:
+          capabilities:
+            add: ["NET_RAW", "NET_ADMIN"]
+        resources:
+          limits:
+            nvidia.com/gpu: 1            # 1 fatia time-sliced por UE (10 fatias = 10 UEs)
+        env:
+        - name: K_SPLIT
+          value: "3"
+        - name: QUANT
+          value: "int8"
+
