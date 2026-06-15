@@ -1,0 +1,34 @@
+version: "3.7"
+
+services:
+  bess:
+    image: upf-bess:2.4.2-dev
+    container_name: bess
+    network_mode: host
+    privileged: true
+    cap_add:
+      - IPC_LOCK
+      - NET_ADMIN
+      - SYS_ADMIN
+      - SYS_NICE
+      - SYS_RESOURCE
+    volumes:
+      - ./upf.jsonc:/opt/bess/bessctl/conf/upf.jsonc
+      - /sys/devices/system/node:/sys/devices/system/node
+      - /lib/modules:/lib/modules
+      - /dev/hugepages:/dev/hugepages
+    command: >
+      -grpc-url=0.0.0.0:10514
+
+  pfcpiface:
+    image: upf-pfcp:2.4.2-dev
+    container_name: pfcpiface
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    depends_on:
+      - bess
+    volumes:
+      - ./upf.jsonc:/conf/upf.jsonc
+    command: >
+      -config /conf/upf.jsonc

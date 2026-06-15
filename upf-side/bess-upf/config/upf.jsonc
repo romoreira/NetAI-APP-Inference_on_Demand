@@ -1,0 +1,37 @@
+{
+  "mode": "af_packet",
+  "log_level": "info",
+  "max_sessions": 1024,
+  "table_sizes": {
+    "pdrLookup": 1024,
+    "flowMeasure": 1024,
+    "appQERLookup": 1024,
+    "sessionQERLookup": 1024,
+    "farLookup": 1024
+  },
+  "access": {
+    "ifname": "enp7s0np0"
+  },
+  "core": {
+    "ifname": "enp8s0np0"
+  },
+  "measure_upf": true,
+  "measure_flow": true,
+  "enable_notify_bess": false,
+  "enable_end_marker": false,
+  "workers": 1,
+  "read_timeout": 25,
+  "cpiface": {
+    "dnn": "internet",
+    "hostname": "upf",
+    "http_port": "8080",
+    "enable_ue_ip_alloc": false,
+    "ue_ip_pool": "10.250.0.0/24"
+  },
+  "slice_rate_limit_config": {
+    "n6_bps": 1000000000,
+    "n6_burst_bytes": 12500000,
+    "n3_bps": 1000000000,
+    "n3_burst_bytes": 12500000
+  }
+}
