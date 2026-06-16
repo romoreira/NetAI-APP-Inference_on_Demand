@@ -1,0 +1,70 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ue
+  labels:
+    app: ue
+    role: ue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ue
+      role: ue
+  template:
+    metadata:
+      labels:
+        app: ue
+        role: ue
+      annotations:
+        k8s.v1.cni.cncf.io/networks: n3-net
+    spec:
+      initContainers:
+      - name: setup-n3
+        image: ue-split:local
+        imagePullPolicy: Never
+        command:
+        - sh
+        - -c
+        - |
+          ip addr add ${N3_IP}/24 dev net1 || true
+          ip link set net1 up
+          echo "net1: ${N3_IP}/24"
+          ip -br addr
+        env:
+        - name: N3_IP
+          value: "192.168.70.50"
+        securityContext:
+          capabilities:
+            add: ["NET_ADMIN", "NET_RAW"]
+        volumeMounts:
+        - name: dataset
+          mountPath: /data
+          readOnly: true
+      containers:
+      - name: ue
+        image: ue-split:local
+        imagePullPolicy: Never
+        command: ["sleep", "infinity"]
+        securityContext:
+          capabilities:
+            add: ["NET_RAW", "NET_ADMIN"]
+        resources:
+          limits:
+            nvidia.com/gpu: 1
+        env:
+        - name: TEID
+          value: "1"
+        - name: N3_SRC
+          value: "192.168.70.50"
+        - name: NEXT_HOP_MAC
+          value: "04:3f:72:fa:75:60"
+        volumeMounts:
+        - name: dataset
+          mountPath: /data
+          readOnly: true
+      volumes:
+      - name: dataset
+        hostPath:
+          path: /home/ubuntu/NetAI-APP-Inference_on_Demand/ue-side/dataset/test
+          type: Directory

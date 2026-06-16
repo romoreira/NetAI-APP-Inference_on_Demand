@@ -1,134 +1,139 @@
 """
-split_model.py
---------------
-CNN/YOLO-like com ponto de corte (split point `k`) parametrizável e
-quantização opcional da ativação intermediária.
+split_model.py — ResNet-18 particionado para split inference.
 
-O UE roda head() até a camada k, serializa o tensor de ativação, e a rede
-processa tail() das camadas k+1..N. Trocar a YOLO real depois é só substituir
-os blocos por um nn.Module com a mesma interface (lista de camadas sequenciais).
+Compatível com UE e MEC:
+  UE:  forward_head(x, k)
+  MEC: forward_tail(act, k)
+
+Pontos de corte:
+  k=1: após stem
+  k=2: após layer1
+  k=3: após layer2
+  k=4: após layer3
+  k=5: após layer4
 """
+
 import io
 import torch
 import torch.nn as nn
+import torchvision
 
 
-class SimpleBackbone(nn.Module):
-    """
-    Backbone sequencial com pontos de corte bem definidos.
-    Cada bloco reduz a resolução espacial (stride 2) -> a ativação fica
-    progressivamente MENOR em HxW, o que importa para bytes-na-rede.
+NUM_CLASSES = 2
+SPLIT_POINTS = 5
 
-    Camadas (índices de corte válidos = 1..len(blocks)):
-      bloco 0: 3   -> 32   (stride 2)
-      bloco 1: 32  -> 64   (stride 2)
-      bloco 2: 64  -> 128  (stride 2)
-      bloco 3: 128 -> 256  (stride 2)
-      bloco 4: 256 -> 512  (stride 2)
-    head de detecção no fim.
-    """
 
-    def __init__(self, num_classes: int = 80):
+class SplitResNet18(nn.Module):
+    def __init__(self, num_classes: int = NUM_CLASSES):
         super().__init__()
-        chans = [3, 32, 64, 128, 256, 512]
-        self.blocks = nn.ModuleList()
-        for i in range(len(chans) - 1):
-            self.blocks.append(
-                nn.Sequential(
-                    nn.Conv2d(chans[i], chans[i + 1], 3, stride=2, padding=1),
-                    nn.BatchNorm2d(chans[i + 1]),
-                    nn.SiLU(inplace=True),
-                )
-            )
-        # cabeça de detecção simplificada (predição densa)
-        self.det = nn.Conv2d(chans[-1], (num_classes + 5), 1)
-        self.num_blocks = len(self.blocks)
+        net = torchvision.models.resnet18(weights=None)
+        net.fc = nn.Linear(net.fc.in_features, num_classes)
+
+        self.stem = nn.Sequential(net.conv1, net.bn1, net.relu, net.maxpool)
+        self.layer1 = net.layer1
+        self.layer2 = net.layer2
+        self.layer3 = net.layer3
+        self.layer4 = net.layer4
+        self.avgpool = net.avgpool
+        self.fc = net.fc
+
+        self._stages = [
+            self.stem,
+            self.layer1,
+            self.layer2,
+            self.layer3,
+            self.layer4,
+        ]
 
     def forward_head(self, x: torch.Tensor, k: int) -> torch.Tensor:
-        """Executa blocos 0..k-1 (o que roda no UE). k em [1, num_blocks]."""
-        assert 1 <= k <= self.num_blocks, f"k deve estar em [1,{self.num_blocks}]"
+        if not 1 <= k <= len(self._stages):
+            raise ValueError(f"k must be in [1,{len(self._stages)}], got {k}")
         for i in range(k):
-            x = self.blocks[i](x)
+            x = self._stages[i](x)
         return x
 
     def forward_tail(self, x: torch.Tensor, k: int) -> torch.Tensor:
-        """Executa blocos k..N + cabeça (o que roda na rede/GPU servidor)."""
-        for i in range(k, self.num_blocks):
-            x = self.blocks[i](x)
-        return self.det(x)
+        if not 1 <= k <= len(self._stages):
+            raise ValueError(f"k must be in [1,{len(self._stages)}], got {k}")
+        for i in range(k, len(self._stages)):
+            x = self._stages[i](x)
+        x = self.avgpool(x)
+        x = torch.flatten(x, 1)
+        x = self.fc(x)
+        return x
 
     def forward(self, x: torch.Tensor) -> torch.Tensor:
-        """Inferência completa (baseline all-on-UE ou all-on-server)."""
-        for blk in self.blocks:
-            x = blk(x)
-        return self.det(x)
+        x = self.forward_head(x, SPLIT_POINTS)
+        return self.forward_tail(x, SPLIT_POINTS)
 
 
-# ----------------------- serialização da ativação -----------------------
-
-DTYPE_CODE = {torch.float32: 0, torch.float16: 1, torch.int8: 2}
-CODE_DTYPE = {v: k for k, v in DTYPE_CODE.items()}
+# Compatibilidade com ue_sender.py antigo
+SimpleBackbone = SplitResNet18
 
 
-def quantize(t: torch.Tensor, mode: str):
+def load_fire_resnet18(weights_path, map_location="cpu"):
+    model = SplitResNet18(num_classes=NUM_CLASSES)
+    ckpt = torch.load(weights_path, map_location=map_location)
+
+    if isinstance(ckpt, dict) and "model_state_dict" in ckpt:
+        ckpt = ckpt["model_state_dict"]
+    elif isinstance(ckpt, dict) and "state_dict" in ckpt:
+        ckpt = ckpt["state_dict"]
+
+    if isinstance(ckpt, dict):
+        ckpt = {k.replace("module.", ""): v for k, v in ckpt.items()}
+        model.load_state_dict(ckpt, strict=False)
+
+    return model
+
+
+def serialize_activation(t: torch.Tensor, quant: str = "fp16"):
     """
-    Quantiza a ativação. Retorna (tensor_quantizado, scale).
-    mode: 'fp32' | 'fp16' | 'int8'
-    scale é necessário para dequantizar int8 no servidor.
-    """
-    t = t.detach()
-    if mode == "fp32":
-        return t.contiguous(), 1.0
-    if mode == "fp16":
-        return t.half().contiguous(), 1.0
-    if mode == "int8":
-        scale = (t.abs().max() / 127.0).clamp(min=1e-8)
-        q = (t / scale).round().clamp(-127, 127).to(torch.int8).contiguous()
-        return q, float(scale)
-    raise ValueError(f"modo de quantizacao desconhecido: {mode}")
+    Serializa a ativação no mesmo contrato esperado pelo ue_sender.py:
+      payload, meta = serialize_activation(act, quant)
 
+    payload: bytes com torch.save(tensor)
+    meta: dicionário simples com dtype, shape e bytes.
+    """
+    if quant == "fp16":
+        t = t.detach().half().cpu()
+    elif quant == "fp32":
+        t = t.detach().float().cpu()
+    else:
+        raise ValueError(f"unsupported quant={quant}")
 
-def serialize_activation(t: torch.Tensor, mode: str = "fp32") -> tuple[bytes, dict]:
-    """
-    Serializa o tensor de ativação para bytes crus (sem pickle).
-    Retorna (payload_bytes, meta) onde meta vai no TLV do SRH.
-    """
-    q, scale = quantize(t, mode)
+    bio = io.BytesIO()
+    torch.save(t, bio)
+    payload = bio.getvalue()
+
     meta = {
-        "shape": list(q.shape),
-        "dtype": DTYPE_CODE[q.dtype],
-        "scale": scale,
+        "dtype": 16 if quant == "fp16" else 32,
+        "shape": tuple(t.shape),
+        "nbytes": len(payload),
+        "quant": quant,
+        "scale": 1.0,
+        "zero_point": 0,
     }
-    payload = q.cpu().numpy().tobytes()
     return payload, meta
 
 
-def deserialize_activation(payload: bytes, meta: dict) -> torch.Tensor:
-    """Reconstrói o tensor no servidor a partir dos bytes + meta do TLV."""
-    import numpy as np
-    dtype = CODE_DTYPE[meta["dtype"]]
-    np_dtype = {0: np.float32, 1: np.float16, 2: np.int8}[meta["dtype"]]
-    arr = np.frombuffer(payload, dtype=np_dtype).reshape(meta["shape"]).copy()
-    t = torch.from_numpy(arr)
-    if dtype == torch.int8:
-        t = t.float() * meta["scale"]
-    elif dtype == torch.float16:
-        t = t.float()
-    return t
+def deserialize_activation(buf: bytes) -> torch.Tensor:
+    bio = io.BytesIO(buf)
+    return torch.load(bio, map_location="cpu")
+
+
+def quantize_activation(t: torch.Tensor, quant: str = "fp16") -> torch.Tensor:
+    if quant == "fp16":
+        return t.half()
+    if quant == "fp32":
+        return t.float()
+    raise ValueError(f"unsupported quant={quant}")
 
 
 if __name__ == "__main__":
-    # demonstração rápida dos tamanhos por ponto de corte e quantização
-    m = SimpleBackbone().eval()
-    x = torch.randn(1, 3, 640, 640)
-    print(f"{'k':>2} {'shape ativação':>22} {'fp32 KB':>9} {'fp16 KB':>9} {'int8 KB':>9}")
-    with torch.no_grad():
-        for k in range(1, m.num_blocks + 1):
-            act = m.forward_head(x, k)
-            sizes = {}
-            for mode in ("fp32", "fp16", "int8"):
-                p, _ = serialize_activation(act, mode)
-                sizes[mode] = len(p) / 1024
-            print(f"{k:>2} {str(tuple(act.shape)):>22} "
-                  f"{sizes['fp32']:>9.1f} {sizes['fp16']:>9.1f} {sizes['int8']:>9.1f}")
-
+    m = SplitResNet18().eval()
+    x = torch.randn(1, 3, 224, 224)
+    for k in range(1, 6):
+        a = m.forward_head(x, k)
+        y = m.forward_tail(a, k)
+        print(k, tuple(a.shape), tuple(y.shape))

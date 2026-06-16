@@ -25,3 +25,8 @@ COPY split_model.py ue_sender.py /app/
 # Trocar depois para rodar ue_sender.py em loop como entrypoint, se desejado.
 CMD ["sleep", "infinity"]
 
+
+# ResNet-18 split model dependency, compatible with torch 2.4.1 + CUDA 12.1
+RUN python3 -m pip install --no-cache-dir --no-deps \
+    torchvision==0.19.1+cu121 \
+    --index-url https://download.pytorch.org/whl/cu121
