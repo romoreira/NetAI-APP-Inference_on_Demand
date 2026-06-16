@@ -30,23 +30,95 @@ ETH_P_ALL = 0x0003
 
 def parse_packet(buf):
     """
-    Parseia um frame recebido. Retorna dict com k, dtype, frag_off,
-    frag_total, scale, shape, e o chunk de payload — ou None se não for
-    um pacote nosso (sem SRH/TLV esperado).
+    Parseia um frame recebido.
 
-    O pacote que chega depois do decap do BESS pode vir com ou sem o
-    cabeçalho Ethernet, e com ou sem o IPv4/UDP/GTP externos, dependendo
-    de quanto o BESS remove. Aqui tratamos o caso geral: localizamos o
-    IPv6 (versão 6) e parseamos a partir dele.
+    Suporta dois formatos:
+      1. Ethernet/IPv4/UDP/TLV/chunk, usado pelo sender IPv4 atual.
+      2. IPv6/SRH/TLV/chunk, formato antigo.
     """
-    # tenta achar o início do IPv6: procuramos um byte cujo nibble alto == 6
-    # nas posições típicas (0 = sem eth; 14 = com eth). Robustez mínima.
     for off in (14, 0):
-        if off + 40 > len(buf):
-            continue
-        if (buf[off] >> 4) == 6:
-            return _parse_from_ipv6(buf, off)
+        if off + 20 <= len(buf) and (buf[off] >> 4) == 4:
+            info = _parse_from_ipv4_udp(buf, off)
+            if info is not None:
+                return info
+
+        if off + 40 <= len(buf) and (buf[off] >> 4) == 6:
+            info = _parse_from_ipv6(buf, off)
+            if info is not None:
+                return info
+
     return None
+
+
+def _parse_tlv_and_chunk(payload):
+    if len(payload) < 2:
+        return None
+
+    if payload[0] != SPLIT_TLV_TYPE:
+        return None
+
+    tlv_len = payload[1]
+    val_start = 2
+    val_end = val_start + tlv_len
+
+    if len(payload) < val_end:
+        return None
+
+    val = payload[val_start:val_end]
+
+    if len(val) < 11:
+        return None
+
+    k, dtype, frag_off, frag_total, scale, ndim = struct.unpack(">BBHHfB", val[:11])
+
+    if len(val) < 11 + 2 * ndim:
+        return None
+
+    dims = [
+        struct.unpack(">H", val[11 + 2 * i:13 + 2 * i])[0]
+        for i in range(ndim)
+    ]
+
+    chunk = payload[val_end:]
+
+    return {
+        "k": k,
+        "dtype": dtype,
+        "frag_off": frag_off,
+        "frag_total": frag_total,
+        "scale": scale,
+        "shape": dims,
+        "chunk": bytes(chunk),
+    }
+
+
+def _parse_from_ipv4_udp(buf, off):
+    ihl = (buf[off] & 0x0F) * 4
+
+    if ihl < 20 or off + ihl > len(buf):
+        return None
+
+    proto = buf[off + 9]
+    if proto != 17:  # UDP
+        return None
+
+    total_len = struct.unpack(">H", buf[off + 2:off + 4])[0]
+    ip_end = min(off + total_len, len(buf))
+
+    udp_off = off + ihl
+    if udp_off + 8 > ip_end:
+        return None
+
+    udp_len = struct.unpack(">H", buf[udp_off + 4:udp_off + 6])[0]
+    payload_start = udp_off + 8
+    payload_end = min(udp_off + udp_len, ip_end)
+
+    if payload_start >= payload_end:
+        return None
+
+    udp_payload = buf[payload_start:payload_end]
+
+    return _parse_tlv_and_chunk(udp_payload)
 
 
 def _parse_from_ipv6(buf, off):

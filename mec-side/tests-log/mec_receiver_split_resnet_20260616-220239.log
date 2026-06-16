@@ -1,0 +1,7 @@
+1781647362,[MEC] sem pesos em '/models/best.pth': aleatórios (só valida transporte)
+1781647362,[MEC] escutando em enp7s0 device=cuda
+1781647373,[MEC] frame#1 k=1 act=(1, 64, 160, 160) -> det=(1, 2) tail_infer=166.0ms
+1781647378,[MEC] frame#2 k=2 act=(1, 64, 160, 160) -> det=(1, 2) tail_infer=4.3ms
+1781647383,[MEC] frame#3 k=3 act=(1, 128, 80, 80) -> det=(1, 2) tail_infer=3.0ms
+1781647389,[MEC] frame#4 k=4 act=(1, 256, 40, 40) -> det=(1, 2) tail_infer=2.1ms
+1781647394,[MEC] frame#5 k=5 act=(1, 512, 20, 20) -> det=(1, 2) tail_infer=0.7ms
