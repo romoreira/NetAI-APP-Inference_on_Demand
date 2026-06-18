@@ -1,0 +1,33 @@
+===== timestamp =====
+Tue Jun 16 22:11:38 UTC 2026
+
+===== pod =====
+NAME                  READY   STATUS    RESTARTS   AGE   IP            NODE   NOMINATED NODE   READINESS GATES
+ue-574df75565-7h9hm   1/1     Running   0          11m   10.244.0.48   ue     <none>           <none>
+
+===== image =====
+ue-split:ipv4
+
+===== sender args =====
+usage: ue_sender.py [-h] [--iface IFACE] [--data-dir DATA_DIR] [--k K]
+                    [--quant {fp32,fp16,int8}] [--fps FPS] [--loop LOOP]
+                    [--chunk CHUNK] --next-hop-mac NEXT_HOP_MAC
+                    [--ue-ip UE_IP] [--mec-ip MEC_IP] [--mec-port MEC_PORT]
+                    [--device DEVICE]
+  --k K
+  --quant {fp32,fp16,int8}
+  --chunk CHUNK
+  --ue-ip UE_IP
+  --mec-ip MEC_IP
+  --mec-port MEC_PORT
+  --device DEVICE
+
+===== resnet/cuda validation =====
+torch 2.4.1+cu121
+torchvision 0.19.1+cu121
+cuda available True
+k 1 act (1, 64, 80, 80) payload 820380 meta {'dtype': 16, 'shape': (1, 64, 80, 80), 'nbytes': 820380, 'quant': 'fp16', 'scale': 1.0, 'zero_point': 0}
+k 2 act (1, 64, 80, 80) payload 820380 meta {'dtype': 16, 'shape': (1, 64, 80, 80), 'nbytes': 820380, 'quant': 'fp16', 'scale': 1.0, 'zero_point': 0}
+k 3 act (1, 128, 40, 40) payload 410780 meta {'dtype': 16, 'shape': (1, 128, 40, 40), 'nbytes': 410780, 'quant': 'fp16', 'scale': 1.0, 'zero_point': 0}
+k 4 act (1, 256, 20, 20) payload 205980 meta {'dtype': 16, 'shape': (1, 256, 20, 20), 'nbytes': 205980, 'quant': 'fp16', 'scale': 1.0, 'zero_point': 0}
+k 5 act (1, 512, 10, 10) payload 103580 meta {'dtype': 16, 'shape': (1, 512, 10, 10), 'nbytes': 103580, 'quant': 'fp16', 'scale': 1.0, 'zero_point': 0}
