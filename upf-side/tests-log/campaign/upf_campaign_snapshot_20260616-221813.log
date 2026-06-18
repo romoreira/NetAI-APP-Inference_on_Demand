@@ -1,0 +1,73 @@
+===== timestamp =====
+Tue Jun 16 22:18:13 UTC 2026
+
+===== splitController =====
+  splitController::SplitController()
+    Per-packet metadata fields:
+        split_k: write  1 bytes (no downstream reader)
+    Input gates:
+        0: batches 0           packets 0            gtpuDecap:0 ->	
+    Output gates:
+        0: batches 1719167     packets 1739682      -> 0:appQERLookup	Track::track0
+        1: batches 0           packets 0            -> 0:splitDownlink	Track::track0
+    Deadends: 0           
+
+===== n6MecDstEther =====
+  n6MecDstEther::Update()
+    Input gates:
+        0: batches 0           packets 0            enp8s0np0Routes:0 ->	
+    Output gates:
+        0: batches 1719167     packets 1739682      -> 0:enp8s0np0Merge	Track::track0
+    Deadends: 0           
+
+===== ports =====
+  enp7s0np0Fast Driver PMDPort    HWaddr 04:3f:72:fa:75:60  MTU 1500  
+               Speed 25,000Mbps  Link UP    Duplex FULL  Autoneg ON   
+       Inc/RX  packets: 2,261,165           bytes: 3,182,137,927       
+               dropped: 0                   
+       Out/TX  packets: 0                   bytes: 0                   
+               dropped: 0                   
+
+  enp8s0np0Fast Driver PMDPort    HWaddr 04:3f:72:fa:75:61  MTU 1500  
+               Speed 25,000Mbps  Link UP    Duplex FULL  Autoneg ON   
+       Inc/RX  packets: 523                 bytes: 44,594              
+               dropped: 0                   
+       Out/TX  packets: 1,739,682           bytes: 2,370,923,193       
+               dropped: 0                   
+
+  notifyCP     Driver UnixSocketPort HWaddr 16:a4:e3:8a:99:62  MTU 1500  
+               Speed UNKNOWN     Link UP    Duplex FULL  Autoneg ON   
+       Inc/RX  packets: 0                   bytes: 0                   
+               dropped: 0                   
+       Out/TX  packets: 0                   bytes: 0                   
+               dropped: 0                   
+
+  pfcpPort     Driver UnixSocketPort HWaddr d6:02:00:3e:ad:ee  MTU 1500  
+               Speed UNKNOWN     Link UP    Duplex FULL  Autoneg ON   
+       Inc/RX  packets: 0                   bytes: 0                   
+               dropped: 0                   
+       Out/TX  packets: 0                   bytes: 0                   
+               dropped: 0                   
+
+===== metrics =====
+# HELP pfcp_sessions Number of PFCP sessions currently in the UPF
+# TYPE pfcp_sessions gauge
+pfcp_sessions{node_id="192.168.80.2"} 10
+# HELP upf_bytes_count Shows the number of bytes received by the UPF port
+# TYPE upf_bytes_count counter
+upf_bytes_count{dir="rx",iface="Access"} 3.182137927e+09
+upf_bytes_count{dir="rx",iface="Core"} 44594
+upf_bytes_count{dir="tx",iface="Access"} 0
+upf_bytes_count{dir="tx",iface="Core"} 2.370923193e+09
+# HELP upf_dropped_count Shows the number of packets dropped on receive by the UPF port
+# TYPE upf_dropped_count counter
+upf_dropped_count{dir="rx",iface="Access"} 0
+upf_dropped_count{dir="rx",iface="Core"} 0
+upf_dropped_count{dir="tx",iface="Access"} 0
+upf_dropped_count{dir="tx",iface="Core"} 0
+# HELP upf_packets_count Shows the number of packets received by the UPF port
+# TYPE upf_packets_count counter
+upf_packets_count{dir="rx",iface="Access"} 2.261165e+06
+upf_packets_count{dir="rx",iface="Core"} 523
+upf_packets_count{dir="tx",iface="Access"} 0
+upf_packets_count{dir="tx",iface="Core"} 1.739682e+06

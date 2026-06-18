@@ -1,0 +1,11 @@
+FROM upf-bess:2.4.2-dev-splitstats-teid AS teid
+
+FROM upf-bess:2.4.2-dev-mlx5-splitstats
+
+COPY --from=teid /bin/bessd /bin/bessd
+COPY --from=teid /bin/modules /bin/modules
+COPY --from=teid /opt/bess /opt/bess
+COPY --from=teid /protobuf /protobuf
+COPY --from=teid /bess/protobuf /bess/protobuf
+
+RUN ldconfig || true

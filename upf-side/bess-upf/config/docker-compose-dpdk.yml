@@ -1,6 +1,6 @@
 services:
   bess:
-    image: upf-bess:2.4.2-dev-mlx5
+    image: upf-bess:2.4.2-dev-mlx5-splitstats
     container_name: bess
     network_mode: host
     privileged: true

@@ -1,0 +1,33 @@
+FROM upf-bess:2.4.2-dev-splitstats-teid
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    --no-install-recommends \
+    libibverbs1 \
+    ibverbs-providers \
+    librdmacm1 \
+    libmlx5-1 \
+    libnl-3-200 \
+    libnl-route-3-200 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+RUN set -e; \
+    mkdir -p /opt/bess/lib/dpdk-pmds; \
+    for pat in librte_common_mlx5 librte_net_mlx5; do \
+      found=0; \
+      for f in /usr/local/lib/x86_64-linux-gnu/${pat}.so*; do \
+        if [ -f "$f" ]; then \
+          ln -sf "$f" /opt/bess/lib/dpdk-pmds/; \
+          found=1; \
+        fi; \
+      done; \
+      if [ "$found" -eq 0 ]; then \
+        echo "Missing ${pat}" >&2; \
+        exit 1; \
+      fi; \
+    done; \
+    ldconfig; \
+    echo "MLX5 PMDs enabled:"; \
+    ls -l /opt/bess/lib/dpdk-pmds | grep mlx5
