@@ -1,0 +1,8 @@
+Defaulted container "ue" out of: ue, setup-n3 (init)
+[RUN_SENDER] iface=net1 pod_n3_src=192.168.70.50 upf_n3=192.168.70.1 next_hop_mac=04:3f:72:fa:75:60 teid=11 ue_ip=10.250.0.2
+[UE-IPV4] iface=net1 mac=b2:53:79:e4:ee:80 teid=11 inner=10.250.0.2:40001->192.168.90.2:5001 k=1 quant=fp16 device=cuda dataset=2000 frames
+[UE-IPV4] frame=0 head_infer=111.0ms tx=67.1ms bytes=3277980 frags=2522 sent=2522
+[UE-IPV4] frame=1 head_infer=4.6ms tx=62.8ms bytes=3277980 frags=2522 sent=2522
+[UE-IPV4] frame=2 head_infer=1.9ms tx=53.9ms bytes=3277980 frags=2522 sent=2522
+[UE-IPV4] frame=3 head_infer=0.9ms tx=65.6ms bytes=3277980 frags=2522 sent=2522
+[UE-IPV4] frame=4 head_infer=1.1ms tx=49.9ms bytes=3277980 frags=2522 sent=2522

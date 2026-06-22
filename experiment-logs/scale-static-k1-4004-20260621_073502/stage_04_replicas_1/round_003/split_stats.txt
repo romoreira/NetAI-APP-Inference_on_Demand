@@ -1,0 +1,7 @@
+response: statistics {
+  teid: 21
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+

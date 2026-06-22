@@ -1,0 +1,3 @@
+run_id,pod,event_id,planned_begin_offset_s,duration_s,cpu_load,latency_ms,jitter_ms,actual_begin_ts,actual_end_ts,no_chaos,status,error
+scale-static-k4-1006-20260619_114233-stage1-replicas1,ue-574df75565-7h9hm,0,67.813,21,67,73,3,1781869696.469231,1781869718.081558,0,completed,
+scale-static-k4-1006-20260619_114233-stage1-replicas1,ue-574df75565-7h9hm,1,104.301,28,48,54,11,1781869732.983279,1781869761.521836,0,completed,

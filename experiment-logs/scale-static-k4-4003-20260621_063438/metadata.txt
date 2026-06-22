@@ -1,0 +1,12 @@
+method=static-k4
+run_id=scale-static-k4-4003-20260621_063438
+chaos_seed=4003
+stages=5
+stage_duration_s=180
+period_s=15
+scale_values=4 4 3 1 2
+warmup_after_scale_s=30
+sender_fps=1
+sender_loop=5
+head_bad_ms=80
+tx_bad_ms=22

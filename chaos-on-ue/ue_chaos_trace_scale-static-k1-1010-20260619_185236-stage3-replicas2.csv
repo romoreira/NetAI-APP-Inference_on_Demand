@@ -1,0 +1,6 @@
+run_id,pod,event_id,planned_begin_offset_s,duration_s,cpu_load,latency_ms,jitter_ms,actual_begin_ts,actual_end_ts,no_chaos,status,error
+scale-static-k1-1010-20260619_185236-stage3-replicas2,ue-574df75565-7h9hm,0,82.581,26,42,64,13,1781896017.066740,1781896043.652357,0,completed,
+scale-static-k1-1010-20260619_185236-stage3-replicas2,ue-574df75565-7h9hm,1,90.841,28,64,72,6,1781896025.294486,1781896053.864793,0,completed,
+scale-static-k1-1010-20260619_185236-stage3-replicas2,ue-574df75565-fbvfz,0,156.412,29,57,64,14,1781896090.887792,1781896120.473497,0,completed,
+scale-static-k1-1010-20260619_185236-stage3-replicas2,ue-574df75565-7h9hm,2,159.734,28,36,46,8,1781896094.238495,1781896122.879570,0,completed,
+scale-static-k1-1010-20260619_185236-stage3-replicas2,ue-574df75565-7h9hm,3,171.722,20,48,44,6,1781896106.227218,1781896126.851346,0,completed,

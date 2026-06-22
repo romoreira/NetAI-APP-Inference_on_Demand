@@ -1,0 +1,21 @@
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done
+Run ID: scale-static-k3-888-20260618_225336-stage2-replicas1
+UE pods: ['ue-574df75565-7h9hm']
+Generated events: 6
+Pods with no chaos: 0
+[BEGIN] pod=ue-574df75565-7h9hm event=0 cpu=32 latency=40ms jitter=9ms duration=29s
+[BEGIN] pod=ue-574df75565-7h9hm event=1 cpu=71 latency=17ms jitter=10ms duration=17s
+[END] pod=ue-574df75565-7h9hm event=0
+[END] pod=ue-574df75565-7h9hm event=1
+[BEGIN] pod=ue-574df75565-7h9hm event=2 cpu=34 latency=63ms jitter=14ms duration=25s
+[END] pod=ue-574df75565-7h9hm event=2
+[BEGIN] pod=ue-574df75565-7h9hm event=3 cpu=74 latency=35ms jitter=3ms duration=28s
+[BEGIN] pod=ue-574df75565-7h9hm event=4 cpu=50 latency=70ms jitter=10ms duration=14s
+[END] pod=ue-574df75565-7h9hm event=4
+[END] pod=ue-574df75565-7h9hm event=3
+[BEGIN] pod=ue-574df75565-7h9hm event=5 cpu=43 latency=21ms jitter=15ms duration=40s
+[END] pod=ue-574df75565-7h9hm event=5
+OK: trace saved to ue_chaos_trace_scale-static-k3-888-20260618_225336-stage2-replicas1.csv
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done

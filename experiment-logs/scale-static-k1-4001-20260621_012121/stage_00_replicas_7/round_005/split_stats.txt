@@ -1,0 +1,43 @@
+response: statistics {
+  teid: 1
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 11
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 21
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 31
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 41
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 51
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+statistics {
+  teid: 61
+  k: 1
+  packets: 12610
+  bytes: 17184330
+}
+

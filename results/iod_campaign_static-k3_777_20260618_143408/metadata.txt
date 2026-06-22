@@ -1,0 +1,11 @@
+method=static-k3
+run_id=chaos-static-k3-777-20260618_143408
+chaos_seed=777
+pod=ue-574df75565-7h9hm
+teid=1
+ue_ip=10.250.0.1
+duration_s=180
+period_s=8
+sender_fps=1
+sender_loop=3
+ping_target=192.168.70.1

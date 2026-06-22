@@ -1,0 +1,224 @@
+nohup: ignoring input
+============================================================
+SEED=4001
+SCALE_VALUES=7 3 7 4 8
+============================================================
+
+===== START method=static-k1 seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=static-k1 seed=4001 =====
+
+===== START method=static-k2 seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=static-k2 seed=4001 =====
+
+===== START method=static-k3 seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=static-k3 seed=4001 =====
+
+===== START method=static-k4 seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=static-k4 seed=4001 =====
+
+===== START method=static-k5 seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=static-k5 seed=4001 =====
+
+===== START method=iod seed=4001 scale=[7 3 7 4 8] =====
+===== DONE method=iod seed=4001 =====
+============================================================
+SEED=4002
+SCALE_VALUES=7 8 2 1 4
+============================================================
+
+===== START method=static-k1 seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=static-k1 seed=4002 =====
+
+===== START method=static-k2 seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=static-k2 seed=4002 =====
+
+===== START method=static-k3 seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=static-k3 seed=4002 =====
+
+===== START method=static-k4 seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=static-k4 seed=4002 =====
+
+===== START method=static-k5 seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=static-k5 seed=4002 =====
+
+===== START method=iod seed=4002 scale=[7 8 2 1 4] =====
+===== DONE method=iod seed=4002 =====
+============================================================
+SEED=4003
+SCALE_VALUES=4 4 3 1 2
+============================================================
+
+===== START method=static-k1 seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=static-k1 seed=4003 =====
+
+===== START method=static-k2 seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=static-k2 seed=4003 =====
+
+===== START method=static-k3 seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=static-k3 seed=4003 =====
+
+===== START method=static-k4 seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=static-k4 seed=4003 =====
+
+===== START method=static-k5 seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=static-k5 seed=4003 =====
+
+===== START method=iod seed=4003 scale=[4 4 3 1 2] =====
+===== DONE method=iod seed=4003 =====
+============================================================
+SEED=4004
+SCALE_VALUES=8 6 8 9 1
+============================================================
+
+===== START method=static-k1 seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=static-k1 seed=4004 =====
+
+===== START method=static-k2 seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=static-k2 seed=4004 =====
+
+===== START method=static-k3 seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=static-k3 seed=4004 =====
+
+===== START method=static-k4 seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=static-k4 seed=4004 =====
+
+===== START method=static-k5 seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=static-k5 seed=4004 =====
+
+===== START method=iod seed=4004 scale=[8 6 8 9 1] =====
+===== DONE method=iod seed=4004 =====
+============================================================
+SEED=4005
+SCALE_VALUES=4 10 10 2 3
+============================================================
+
+===== START method=static-k1 seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=static-k1 seed=4005 =====
+
+===== START method=static-k2 seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=static-k2 seed=4005 =====
+
+===== START method=static-k3 seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=static-k3 seed=4005 =====
+
+===== START method=static-k4 seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=static-k4 seed=4005 =====
+
+===== START method=static-k5 seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=static-k5 seed=4005 =====
+
+===== START method=iod seed=4005 scale=[4 10 10 2 3] =====
+===== DONE method=iod seed=4005 =====
+============================================================
+SEED=4006
+SCALE_VALUES=9 4 6 3 2
+============================================================
+
+===== START method=static-k1 seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=static-k1 seed=4006 =====
+
+===== START method=static-k2 seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=static-k2 seed=4006 =====
+
+===== START method=static-k3 seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=static-k3 seed=4006 =====
+
+===== START method=static-k4 seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=static-k4 seed=4006 =====
+
+===== START method=static-k5 seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=static-k5 seed=4006 =====
+
+===== START method=iod seed=4006 scale=[9 4 6 3 2] =====
+===== DONE method=iod seed=4006 =====
+============================================================
+SEED=4007
+SCALE_VALUES=3 5 3 3 7
+============================================================
+
+===== START method=static-k1 seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=static-k1 seed=4007 =====
+
+===== START method=static-k2 seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=static-k2 seed=4007 =====
+
+===== START method=static-k3 seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=static-k3 seed=4007 =====
+
+===== START method=static-k4 seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=static-k4 seed=4007 =====
+
+===== START method=static-k5 seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=static-k5 seed=4007 =====
+
+===== START method=iod seed=4007 scale=[3 5 3 3 7] =====
+===== DONE method=iod seed=4007 =====
+============================================================
+SEED=4008
+SCALE_VALUES=9 2 5 6 2
+============================================================
+
+===== START method=static-k1 seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=static-k1 seed=4008 =====
+
+===== START method=static-k2 seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=static-k2 seed=4008 =====
+
+===== START method=static-k3 seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=static-k3 seed=4008 =====
+
+===== START method=static-k4 seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=static-k4 seed=4008 =====
+
+===== START method=static-k5 seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=static-k5 seed=4008 =====
+
+===== START method=iod seed=4008 scale=[9 2 5 6 2] =====
+===== DONE method=iod seed=4008 =====
+============================================================
+SEED=4009
+SCALE_VALUES=8 1 1 5 2
+============================================================
+
+===== START method=static-k1 seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=static-k1 seed=4009 =====
+
+===== START method=static-k2 seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=static-k2 seed=4009 =====
+
+===== START method=static-k3 seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=static-k3 seed=4009 =====
+
+===== START method=static-k4 seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=static-k4 seed=4009 =====
+
+===== START method=static-k5 seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=static-k5 seed=4009 =====
+
+===== START method=iod seed=4009 scale=[8 1 1 5 2] =====
+===== DONE method=iod seed=4009 =====
+============================================================
+SEED=4010
+SCALE_VALUES=3 5 9 5 1
+============================================================
+
+===== START method=static-k1 seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=static-k1 seed=4010 =====
+
+===== START method=static-k2 seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=static-k2 seed=4010 =====
+
+===== START method=static-k3 seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=static-k3 seed=4010 =====
+
+===== START method=static-k4 seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=static-k4 seed=4010 =====
+
+===== START method=static-k5 seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=static-k5 seed=4010 =====
+
+===== START method=iod seed=4010 scale=[3 5 9 5 1] =====
+===== DONE method=iod seed=4010 =====
+
+FULL_MATRIX_DONE
+MASTER_LOG_DIR=/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/full-matrix-20260621_012121

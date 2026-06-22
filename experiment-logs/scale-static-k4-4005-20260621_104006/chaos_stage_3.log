@@ -1,0 +1,35 @@
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done
+Run ID: scale-static-k4-4005-20260621_104006-stage3-replicas2
+UE pods: ['ue-574df75565-7h9hm', 'ue-574df75565-rd8b6']
+Generated events: 13
+Pods with no chaos: 0
+[BEGIN] pod=ue-574df75565-7h9hm event=0 cpu=45 latency=38ms jitter=11ms duration=27s
+[BEGIN] pod=ue-574df75565-rd8b6 event=0 cpu=30 latency=61ms jitter=13ms duration=18s
+[BEGIN] pod=ue-574df75565-rd8b6 event=1 cpu=32 latency=38ms jitter=8ms duration=33s
+[BEGIN] pod=ue-574df75565-rd8b6 event=2 cpu=23 latency=67ms jitter=5ms duration=26s
+[END] pod=ue-574df75565-rd8b6 event=0
+[END] pod=ue-574df75565-7h9hm event=0
+[END] pod=ue-574df75565-rd8b6 event=2
+[END] pod=ue-574df75565-rd8b6 event=1
+[BEGIN] pod=ue-574df75565-rd8b6 event=3 cpu=74 latency=17ms jitter=14ms duration=18s
+[BEGIN] pod=ue-574df75565-rd8b6 event=4 cpu=70 latency=35ms jitter=17ms duration=17s
+[END] pod=ue-574df75565-rd8b6 event=4
+[END] pod=ue-574df75565-rd8b6 event=3
+[BEGIN] pod=ue-574df75565-7h9hm event=1 cpu=54 latency=74ms jitter=2ms duration=34s
+[BEGIN] pod=ue-574df75565-7h9hm event=2 cpu=37 latency=39ms jitter=11ms duration=34s
+[BEGIN] pod=ue-574df75565-rd8b6 event=5 cpu=74 latency=63ms jitter=7ms duration=39s
+[BEGIN] pod=ue-574df75565-rd8b6 event=6 cpu=49 latency=70ms jitter=13ms duration=40s
+[BEGIN] pod=ue-574df75565-7h9hm event=3 cpu=35 latency=39ms jitter=14ms duration=12s
+[END] pod=ue-574df75565-7h9hm event=1
+[BEGIN] pod=ue-574df75565-rd8b6 event=7 cpu=65 latency=53ms jitter=18ms duration=35s
+[END] pod=ue-574df75565-7h9hm event=3
+[END] pod=ue-574df75565-7h9hm event=2
+[BEGIN] pod=ue-574df75565-7h9hm event=4 cpu=50 latency=54ms jitter=12ms duration=18s
+[END] pod=ue-574df75565-rd8b6 event=5
+[END] pod=ue-574df75565-rd8b6 event=6
+[END] pod=ue-574df75565-rd8b6 event=7
+[END] pod=ue-574df75565-7h9hm event=4
+OK: trace saved to ue_chaos_trace_scale-static-k4-4005-20260621_104006-stage3-replicas2.csv
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done

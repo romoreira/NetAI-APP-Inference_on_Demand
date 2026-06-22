@@ -1,0 +1,464 @@
+[15:03:49] output: /home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349
+[15:03:49] method: static-k5
+[15:03:49] checking PFCP sessions
+[15:03:50] collecting UPF pipeline
+[15:03:52] scale deployment ue -> replicas=3
+deployment.apps/ue scaled
+deployment "ue" successfully rolled out
+[15:03:52] ready pods=3; warmup=30s
+[15:04:23] pod enter: pod=ue-574df75565-7h9hm slot=0 teid=1 ue_ip=10.250.0.1
+[15:04:23] pod enter: pod=ue-574df75565-9p924 slot=1 teid=11 ue_ip=10.250.0.2
+[15:04:23] pod enter: pod=ue-574df75565-rd8b6 slot=2 teid=21 ue_ip=10.250.0.3
+[15:04:25] start chaos stage=0 replicas=3 seed=4007
+[15:04:25] stage=0 round=0 replicas=3 active_pods=3 elapsed=33s
+[15:04:27]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.2 last_head=0 last_tx=0 -> k=5 reason=static
+[15:04:28]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=289.1 last_head=0 last_tx=0 -> k=5 reason=static
+[15:04:29]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.0 last_head=0 last_tx=0 -> k=5 reason=static
+[15:04:54] stage=0 round=1 replicas=3 active_pods=3 elapsed=62s
+[15:04:56]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.0 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:04:57]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=534.2 last_head=4.7 last_tx=5.2 -> k=5 reason=static
+[15:04:58]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.2 last_head=4.8 last_tx=4.5 -> k=5 reason=static
+[15:05:23] stage=0 round=2 replicas=3 active_pods=3 elapsed=91s
+[15:05:25]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=163.5 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:05:26]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=337.0 last_head=4.7 last_tx=4.4 -> k=5 reason=static
+[15:05:27]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=1.5 last_head=4.7 last_tx=4.7 -> k=5 reason=static
+[15:05:52] stage=0 round=3 replicas=3 active_pods=3 elapsed=120s
+[15:05:54]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=1.9 last_head=4.8 last_tx=5.9 -> k=5 reason=static
+[15:05:55]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=188.0 last_head=4.7 last_tx=6.0 -> k=5 reason=static
+[15:05:56]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=776.5 last_head=4.7 last_tx=5.2 -> k=5 reason=static
+[15:06:21] stage=0 round=4 replicas=3 active_pods=3 elapsed=149s
+[15:06:23]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.3 last_head=6.1 last_tx=6.4 -> k=5 reason=static
+[15:06:24]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=508.0 last_head=4.8 last_tx=4.9 -> k=5 reason=static
+[15:06:24]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=111.8 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:06:49] stage=0 round=5 replicas=3 active_pods=3 elapsed=177s
+[15:06:52]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=107.5 last_head=4.8 last_tx=4.5 -> k=5 reason=static
+[15:06:53]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=792.6 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:06:54]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=360.2 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:07:18] stage=0 round=6 replicas=3 active_pods=3 elapsed=206s
+[15:07:21]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=64.8 last_head=4.7 last_tx=6.1 -> k=5 reason=static
+[15:07:22]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.5 last_head=4.7 last_tx=6.4 -> k=5 reason=static
+[15:07:23]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.2 last_head=4.7 last_tx=4.5 -> k=5 reason=static
+[15:07:48] wait chaos stage=0
+[15:07:50] scale deployment ue -> replicas=5
+deployment.apps/ue scaled
+Waiting for deployment "ue" rollout to finish: 3 of 5 updated replicas are available...
+Waiting for deployment "ue" rollout to finish: 4 of 5 updated replicas are available...
+deployment "ue" successfully rolled out
+[15:07:52] ready pods=5; warmup=30s
+[15:08:22] pod enter: pod=ue-574df75565-7lppr slot=3 teid=31 ue_ip=10.250.0.4
+[15:08:22] pod enter: pod=ue-574df75565-rjqnz slot=4 teid=41 ue_ip=10.250.0.5
+[15:08:25] start chaos stage=1 replicas=5 seed=4008
+[15:08:25] stage=1 round=0 replicas=5 active_pods=5 elapsed=273s
+[15:08:27]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.7 last_head=4.7 last_tx=5.5 -> k=5 reason=static
+[15:08:28]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=2.2 last_head=0 last_tx=0 -> k=5 reason=static
+[15:08:29]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.4 last_head=4.7 last_tx=4.7 -> k=5 reason=static
+[15:08:30]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.3 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:08:31]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=2.3 last_head=0 last_tx=0 -> k=5 reason=static
+[15:08:56] stage=1 round=1 replicas=5 active_pods=5 elapsed=304s
+[15:08:58]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=245.5 last_head=4.8 last_tx=5.2 -> k=5 reason=static
+[15:08:59]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=382.7 last_head=4.7 last_tx=6.0 -> k=5 reason=static
+[15:09:01]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=636.3 last_head=4.7 last_tx=6.1 -> k=5 reason=static
+[15:09:02]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=479.9 last_head=4.9 last_tx=6.2 -> k=5 reason=static
+[15:09:03]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=1.7 last_head=4.8 last_tx=4.9 -> k=5 reason=static
+[15:09:29] stage=1 round=2 replicas=5 active_pods=5 elapsed=336s
+[15:09:31]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.2 last_head=11.9 last_tx=12.1 -> k=5 reason=static
+[15:09:32]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=431.8 last_head=7.7 last_tx=10.7 -> k=5 reason=static
+[15:09:33]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=1.7 last_head=16.0 last_tx=25.0 -> k=5 reason=static
+[15:09:34]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=339.0 last_head=4.7 last_tx=24.8 -> k=5 reason=static
+[15:09:35]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=1.5 last_head=8.2 last_tx=4.9 -> k=5 reason=static
+[15:10:00] stage=1 round=3 replicas=5 active_pods=5 elapsed=368s
+[15:10:02]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.1 last_head=10.9 last_tx=6.7 -> k=5 reason=static
+[15:10:03]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=2.5 last_head=4.7 last_tx=5.3 -> k=5 reason=static
+[15:10:03]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.1 last_head=4.7 last_tx=5.1 -> k=5 reason=static
+[15:10:04]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=4.9 last_tx=4.9 -> k=5 reason=static
+[15:10:05]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=2.5 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:10:31] stage=1 round=4 replicas=5 active_pods=5 elapsed=399s
+[15:10:33]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=471.7 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:10:34]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=655.0 last_head=5.0 last_tx=5.3 -> k=5 reason=static
+[15:10:35]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.7 last_head=4.7 last_tx=4.8 -> k=5 reason=static
+[15:10:36]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=4.7 last_tx=4.7 -> k=5 reason=static
+[15:10:38]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=343.0 last_head=4.9 last_tx=5.0 -> k=5 reason=static
+[15:11:03] stage=1 round=5 replicas=5 active_pods=5 elapsed=431s
+[15:11:05]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=257.8 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:11:06]   pod=ue-574df75565-7lppr slot=3 teid=31 cpu=366.5 last_head=4.8 last_tx=9.0 -> k=5 reason=static
+[15:11:07]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=337.9 last_head=4.7 last_tx=8.5 -> k=5 reason=static
+[15:11:08]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.6 last_head=4.7 last_tx=6.9 -> k=5 reason=static
+[15:11:09]   pod=ue-574df75565-rjqnz slot=4 teid=41 cpu=403.1 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:11:34] wait chaos stage=1
+[15:11:56] scale deployment ue -> replicas=3
+deployment.apps/ue scaled
+deployment "ue" successfully rolled out
+[15:11:56] ready pods=3; warmup=30s
+[15:12:26] pod exit: pod=ue-574df75565-7lppr slot=3 teid=31 ue_ip=10.250.0.4
+[15:12:26] pod exit: pod=ue-574df75565-rjqnz slot=4 teid=41 ue_ip=10.250.0.5
+[15:12:28] start chaos stage=2 replicas=3 seed=4009
+[15:12:28] stage=2 round=0 replicas=3 active_pods=3 elapsed=516s
+[15:12:30]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.2 last_head=6.4 last_tx=5.7 -> k=5 reason=static
+[15:12:31]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.4 last_head=4.7 last_tx=4.8 -> k=5 reason=static
+[15:12:32]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=5.2 last_tx=4.9 -> k=5 reason=static
+[15:12:57] stage=2 round=1 replicas=3 active_pods=3 elapsed=545s
+[15:12:59]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=190.2 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:13:00]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=292.5 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:13:01]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.4 last_head=4.7 last_tx=4.8 -> k=5 reason=static
+[15:13:25] stage=2 round=2 replicas=3 active_pods=3 elapsed=573s
+[15:13:27]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=125.4 last_head=4.8 last_tx=4.3 -> k=5 reason=static
+[15:13:28]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.1 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:13:29]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.1 last_head=4.7 last_tx=4.4 -> k=5 reason=static
+[15:13:54] stage=2 round=3 replicas=3 active_pods=3 elapsed=602s
+[15:13:56]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=360.4 last_head=4.9 last_tx=4.7 -> k=5 reason=static
+[15:13:57]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.1 last_head=4.9 last_tx=4.8 -> k=5 reason=static
+[15:13:58]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.4 last_head=4.7 last_tx=5.9 -> k=5 reason=static
+[15:14:23] stage=2 round=4 replicas=3 active_pods=3 elapsed=631s
+[15:14:25]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=902.6 last_head=4.7 last_tx=4.5 -> k=5 reason=static
+[15:14:26]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.5 last_head=4.9 last_tx=4.7 -> k=5 reason=static
+[15:14:27]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.2 last_head=4.8 last_tx=4.9 -> k=5 reason=static
+[15:14:51] stage=2 round=5 replicas=3 active_pods=3 elapsed=659s
+[15:14:53]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=258.2 last_head=4.8 last_tx=5.0 -> k=5 reason=static
+[15:14:54]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=222.6 last_head=4.8 last_tx=4.8 -> k=5 reason=static
+[15:14:55]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=4.8 last_tx=4.6 -> k=5 reason=static
+[15:15:20] stage=2 round=6 replicas=3 active_pods=3 elapsed=688s
+[15:15:23]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.2 last_head=5.0 last_tx=4.8 -> k=5 reason=static
+[15:15:24]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.1 last_head=4.8 last_tx=4.6 -> k=5 reason=static
+[15:15:24]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=1.9 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:15:49] wait chaos stage=2
+[15:15:58] scale deployment ue -> replicas=3
+deployment.apps/ue scaled
+deployment "ue" successfully rolled out
+[15:15:58] ready pods=3; warmup=30s
+[15:16:31] start chaos stage=3 replicas=3 seed=4010
+[15:16:31] stage=3 round=0 replicas=3 active_pods=3 elapsed=759s
+[15:16:33]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.2 last_head=4.7 last_tx=4.8 -> k=5 reason=static
+[15:16:33]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.1 last_head=4.7 last_tx=6.1 -> k=5 reason=static
+[15:16:34]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=175.5 last_head=4.7 last_tx=6.8 -> k=5 reason=static
+[15:16:59] stage=3 round=1 replicas=3 active_pods=3 elapsed=787s
+[15:17:01]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.4 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:17:02]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=287.2 last_head=4.7 last_tx=4.7 -> k=5 reason=static
+[15:17:03]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=401.4 last_head=4.7 last_tx=6.0 -> k=5 reason=static
+[15:17:27] stage=3 round=2 replicas=3 active_pods=3 elapsed=815s
+[15:17:29]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=212.5 last_head=7.1 last_tx=4.6 -> k=5 reason=static
+[15:17:30]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.4 last_head=5.0 last_tx=4.9 -> k=5 reason=static
+[15:17:31]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=141.2 last_head=4.7 last_tx=8.8 -> k=5 reason=static
+[15:17:57] stage=3 round=3 replicas=3 active_pods=3 elapsed=845s
+[15:17:59]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.4 last_head=5.0 last_tx=4.8 -> k=5 reason=static
+[15:18:00]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.4 last_head=6.2 last_tx=4.6 -> k=5 reason=static
+[15:18:01]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=234.5 last_head=4.8 last_tx=5.0 -> k=5 reason=static
+[15:18:25] stage=3 round=4 replicas=3 active_pods=3 elapsed=873s
+[15:18:28]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=223.9 last_head=4.8 last_tx=4.8 -> k=5 reason=static
+[15:18:28]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.2 last_head=4.9 last_tx=4.9 -> k=5 reason=static
+[15:18:29]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=4.7 last_tx=4.3 -> k=5 reason=static
+[15:18:54] stage=3 round=5 replicas=3 active_pods=3 elapsed=902s
+[15:18:56]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=159.9 last_head=4.7 last_tx=4.7 -> k=5 reason=static
+[15:18:57]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.5 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:18:58]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=469.8 last_head=4.7 last_tx=4.6 -> k=5 reason=static
+[15:19:23] stage=3 round=6 replicas=3 active_pods=3 elapsed=931s
+[15:19:25]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=667.0 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:19:26]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=443.9 last_head=4.8 last_tx=4.8 -> k=5 reason=static
+[15:19:27]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=284.6 last_head=4.7 last_tx=4.5 -> k=5 reason=static
+[15:19:53] wait chaos stage=3
+[15:19:55] scale deployment ue -> replicas=7
+deployment.apps/ue scaled
+Waiting for deployment "ue" rollout to finish: 3 of 7 updated replicas are available...
+Waiting for deployment "ue" rollout to finish: 4 of 7 updated replicas are available...
+Waiting for deployment "ue" rollout to finish: 5 of 7 updated replicas are available...
+Waiting for deployment "ue" rollout to finish: 6 of 7 updated replicas are available...
+deployment "ue" successfully rolled out
+[15:19:57] ready pods=7; warmup=30s
+[15:20:27] pod enter: pod=ue-574df75565-2jpwj slot=3 teid=31 ue_ip=10.250.0.4
+[15:20:27] pod enter: pod=ue-574df75565-4mgkl slot=4 teid=41 ue_ip=10.250.0.5
+[15:20:27] pod enter: pod=ue-574df75565-j72bw slot=5 teid=51 ue_ip=10.250.0.6
+[15:20:27] pod enter: pod=ue-574df75565-vf9fr slot=6 teid=61 ue_ip=10.250.0.7
+[15:20:30] start chaos stage=4 replicas=7 seed=4011
+[15:20:30] stage=4 round=0 replicas=7 active_pods=7 elapsed=998s
+[15:20:32]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=2.6 last_head=0 last_tx=0 -> k=5 reason=static
+[15:20:33]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=2.2 last_head=0 last_tx=0 -> k=5 reason=static
+[15:20:34]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.5 last_head=4.8 last_tx=4.9 -> k=5 reason=static
+[15:20:35]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=240.3 last_head=4.7 last_tx=4.5 -> k=5 reason=static
+[15:20:36]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=2.1 last_head=0 last_tx=0 -> k=5 reason=static
+[15:20:36]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.0 last_head=4.9 last_tx=4.7 -> k=5 reason=static
+[15:20:37]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=2.6 last_head=0 last_tx=0 -> k=5 reason=static
+[15:21:02] stage=4 round=1 replicas=7 active_pods=7 elapsed=1030s
+[15:21:05]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=615.5 last_head=4.6 last_tx=5.1 -> k=5 reason=static
+[15:21:06]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=270.7 last_head=4.6 last_tx=5.8 -> k=5 reason=static
+[15:21:07]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=546.1 last_head=4.7 last_tx=6.3 -> k=5 reason=static
+[15:21:08]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=269.0 last_head=4.4 last_tx=5.4 -> k=5 reason=static
+[15:21:10]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=1.9 last_head=4.7 last_tx=5.4 -> k=5 reason=static
+[15:21:11]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.1 last_head=5.1 last_tx=5.4 -> k=5 reason=static
+[15:21:12]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=311.7 last_head=4.7 last_tx=5.3 -> k=5 reason=static
+[15:21:37] stage=4 round=2 replicas=7 active_pods=7 elapsed=1065s
+[15:21:39]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=2.2 last_head=4.7 last_tx=5.3 -> k=5 reason=static
+[15:21:40]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=2.0 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:21:41]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=330.5 last_head=7.4 last_tx=7.2 -> k=5 reason=static
+[15:21:42]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.2 last_head=8.2 last_tx=5.0 -> k=5 reason=static
+[15:21:43]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=411.5 last_head=8.3 last_tx=5.4 -> k=5 reason=static
+[15:21:44]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=218.7 last_head=4.9 last_tx=6.8 -> k=5 reason=static
+[15:21:45]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=449.9 last_head=11.9 last_tx=7.5 -> k=5 reason=static
+[15:22:10] stage=4 round=3 replicas=7 active_pods=7 elapsed=1098s
+[15:22:13]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=225.1 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:22:14]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=383.1 last_head=5.4 last_tx=5.5 -> k=5 reason=static
+[15:22:16]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=464.1 last_head=4.8 last_tx=5.3 -> k=5 reason=static
+[15:22:17]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=312.9 last_head=4.8 last_tx=5.2 -> k=5 reason=static
+[15:22:18]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=942.0 last_head=4.7 last_tx=4.9 -> k=5 reason=static
+[15:22:20]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=2.5 last_head=4.7 last_tx=5.3 -> k=5 reason=static
+[15:22:21]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=2.0 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:22:46] stage=4 round=4 replicas=7 active_pods=7 elapsed=1134s
+[15:22:49]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=2.4 last_head=12.4 last_tx=12.5 -> k=5 reason=static
+[15:22:50]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=1.8 last_head=7.4 last_tx=13.5 -> k=5 reason=static
+[15:22:51]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=433.3 last_head=10.7 last_tx=15.2 -> k=5 reason=static
+[15:22:51]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.2 last_head=4.1 last_tx=5.0 -> k=5 reason=static
+[15:22:52]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=275.3 last_head=10.1 last_tx=13.0 -> k=5 reason=static
+[15:22:53]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=1.6 last_head=4.8 last_tx=5.0 -> k=5 reason=static
+[15:22:54]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=2.3 last_head=8.2 last_tx=9.2 -> k=5 reason=static
+[15:23:19] stage=4 round=5 replicas=7 active_pods=7 elapsed=1167s
+[15:23:21]   pod=ue-574df75565-2jpwj slot=3 teid=31 cpu=2.7 last_head=5.4 last_tx=5.4 -> k=5 reason=static
+[15:23:22]   pod=ue-574df75565-4mgkl slot=4 teid=41 cpu=307.7 last_head=4.9 last_tx=5.4 -> k=5 reason=static
+[15:23:23]   pod=ue-574df75565-7h9hm slot=0 teid=1 cpu=2.4 last_head=4.7 last_tx=5.8 -> k=5 reason=static
+[15:23:24]   pod=ue-574df75565-9p924 slot=1 teid=11 cpu=2.3 last_head=4.8 last_tx=5.5 -> k=5 reason=static
+[15:23:25]   pod=ue-574df75565-j72bw slot=5 teid=51 cpu=413.4 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:23:26]   pod=ue-574df75565-rd8b6 slot=2 teid=21 cpu=320.0 last_head=4.7 last_tx=5.0 -> k=5 reason=static
+[15:23:27]   pod=ue-574df75565-vf9fr slot=6 teid=61 cpu=2.7 last_head=8.5 last_tx=6.8 -> k=5 reason=static
+[15:23:53] wait chaos stage=4
+[15:23:57] collecting final UPF state
+[15:24:02] done
+RESULTS_DIR=/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/chaos_stage_0.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/chaos_stage_1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/chaos_stage_2.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/chaos_stage_3.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/chaos_stage_4.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/metadata.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/pfcp_sessions_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/pfcp_sessions_start.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/pod_events.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/pod_inventory.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/rounds.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/scale_events.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/split_stats_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/pfcp_sessions_after_scale.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/pfcp_sessions_stage_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_000/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_000/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_000/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_000/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_000/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_001/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_001/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_001/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_001/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_001/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_002/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_002/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_002/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_002/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_002/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_003/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_003/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_003/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_003/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_003/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_004/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_004/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_004/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_004/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_004/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_005/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_005/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_005/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_005/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_005/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_006/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_006/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_006/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_006/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/round_006/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/split_clear_before_stage.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_00_replicas_3/split_stats_stage_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/pfcp_sessions_after_scale.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/pfcp_sessions_stage_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_000/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_001/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_002/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_003/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_004/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/round_005/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/split_clear_before_stage.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_01_replicas_5/split_stats_stage_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/pfcp_sessions_after_scale.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/pfcp_sessions_stage_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_000/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_000/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_000/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_000/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_000/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_001/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_001/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_001/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_001/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_001/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_002/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_002/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_002/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_002/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_002/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_003/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_003/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_003/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_003/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_003/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_004/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_004/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_004/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_004/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_004/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_005/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_005/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_005/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_005/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_005/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_006/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_006/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_006/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_006/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/round_006/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/split_clear_before_stage.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_02_replicas_3/split_stats_stage_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/pfcp_sessions_after_scale.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/pfcp_sessions_stage_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_000/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_000/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_000/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_000/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_000/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_001/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_001/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_001/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_001/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_001/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_002/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_002/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_002/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_002/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_002/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_003/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_003/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_003/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_003/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_003/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_004/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_004/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_004/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_004/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_004/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_005/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_005/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_005/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_005/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_005/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_006/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_006/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_006/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_006/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/round_006/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/split_clear_before_stage.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_03_replicas_3/split_stats_stage_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/pfcp_sessions_after_scale.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/pfcp_sessions_stage_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_000/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_001/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_002/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_003/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_004/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/split_clear.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/split_stats.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot0_teid1.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot1_teid11.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot2_teid21.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot3_teid31.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot4_teid41.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot5_teid51.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/round_005/ue_slot6_teid61.log
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/split_clear_before_stage.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/stage_04_replicas_7/split_stats_stage_final.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/ue_chaos_trace_scale-static-k5-4007-20260621_150349-stage0-replicas3.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/ue_chaos_trace_scale-static-k5-4007-20260621_150349-stage1-replicas5.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/ue_chaos_trace_scale-static-k5-4007-20260621_150349-stage2-replicas3.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/ue_chaos_trace_scale-static-k5-4007-20260621_150349-stage3-replicas3.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/ue_chaos_trace_scale-static-k5-4007-20260621_150349-stage4-replicas7.csv
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/upf_pipeline_end.txt
+/home/ubuntu/NetAI-APP-Inference_on_Demand/experiment-logs/scale-static-k5-4007-20260621_150349/upf_pipeline_start.txt
+[15:24:02] cleanup chaos objects

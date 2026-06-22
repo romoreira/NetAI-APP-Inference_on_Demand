@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import csv
+import os
 import random
 import subprocess
 import tempfile
@@ -14,7 +15,10 @@ from pathlib import Path
 NAMESPACE = "default"
 LABEL_SELECTOR = "app=ue,role=ue"
 
-RUN_ID = time.strftime("chaos-%Y%m%d-%H%M%S")
+CHAOS_SEED = int(os.environ.get("CHAOS_SEED", "12345"))
+random.seed(CHAOS_SEED)
+
+RUN_ID = os.environ.get("CHAOS_RUN_ID", time.strftime("chaos-%Y%m%d-%H%M%S"))
 OUT = Path(f"ue_chaos_trace_{RUN_ID}.csv")
 
 # Total time window in which events may start

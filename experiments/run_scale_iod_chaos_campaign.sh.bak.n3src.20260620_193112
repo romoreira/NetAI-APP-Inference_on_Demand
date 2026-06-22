@@ -1,0 +1,538 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+METHOD="${1:-iod}"
+
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+UPF_SSH="${UPF_SSH:-ubuntu@192.168.80.1}"
+
+TS="$(date +%Y%m%d_%H%M%S)"
+CHAOS_SEED="${CHAOS_SEED:-12345}"
+RUN_ID="scale-${METHOD}-${CHAOS_SEED}-${TS}"
+OUT="$ROOT/experiment-logs/$RUN_ID"
+
+mkdir -p "$OUT"
+
+STAGES="${STAGES:-5}"
+STAGE_DURATION_S="${STAGE_DURATION_S:-180}"
+PERIOD_S="${PERIOD_S:-15}"
+WARMUP_AFTER_SCALE_S="${WARMUP_AFTER_SCALE_S:-30}"
+SCALE_VALUES="${SCALE_VALUES:-1 2 4 6 8 10}"
+MAX_UES="${MAX_UES:-10}"
+
+SENDER_FPS="${SENDER_FPS:-1}"
+SENDER_LOOP="${SENDER_LOOP:-5}"
+
+HEAD_BAD_MS="${HEAD_BAD_MS:-80}"
+TX_BAD_MS="${TX_BAD_MS:-35}"
+
+IFACE="${IFACE:-net1}"
+DATA_DIR="${DATA_DIR:-/data}"
+QUANT="${QUANT:-fp16}"
+CHUNK="${CHUNK:-1300}"
+NEXT_HOP_MAC="${NEXT_HOP_MAC:-04:3f:72:fa:75:60}"
+N3_SRC="${N3_SRC:-192.168.70.100}"
+UPF_N3="${UPF_N3:-192.168.70.1}"
+MEC_IP="${MEC_IP:-192.168.90.2}"
+MEC_PORT="${MEC_PORT:-5001}"
+DEVICE="${DEVICE:-cuda}"
+
+declare -A POD_SLOT
+declare -A LAST_UE_LOG
+
+CHAOS_PID=""
+
+log() {
+  echo "[$(date +%H:%M:%S)] $*"
+}
+
+upf() {
+  ssh \
+    -o BatchMode=yes \
+    -o ConnectTimeout=8 \
+    -o StrictHostKeyChecking=accept-new \
+    "$UPF_SSH" "$@"
+}
+
+upf_read_stats() {
+  local clear="$1"
+
+  upf "sudo -n docker exec bess /opt/bess/bessctl/bessctl command module splitController read_stats SplitControllerCommandReadStatsArg '{\"clear\": ${clear}}'"
+}
+
+collect_split_stats_or_die() {
+  local out="$1"
+  local clear="${2:-False}"
+  local tmp="${out}.tmp"
+  local err="${out}.err"
+
+  if ! upf_read_stats "$clear" > "$tmp" 2> "$err"; then
+    echo "ERROR: failed to collect UPF split stats" >&2
+    cat "$err" >&2 || true
+    exit 40
+  fi
+
+  if grep -qiE 'Permission denied|publickey|Could not|No route|Connection refused|sudo:|docker:|No such container' "$tmp" "$err"; then
+    echo "ERROR: UPF split stats contains SSH/sudo/docker error" >&2
+    cat "$tmp" >&2 || true
+    cat "$err" >&2 || true
+    exit 41
+  fi
+
+  cat "$tmp" > "$out"
+  rm -f "$tmp" "$err"
+}
+
+validate_split_stats_or_die() {
+  local f="$1"
+
+  if grep -qiE 'Permission denied|publickey|Could not|No route|Connection refused|sudo:|docker:|No such container' "$f"; then
+    echo "ERROR: invalid split stats file: $f" >&2
+    cat "$f" >&2 || true
+    exit 42
+  fi
+}
+
+
+get_ready_pods() {
+  kubectl get pods -l app=ue,role=ue --no-headers 2>/dev/null \
+    | awk '$2=="1/1" && $3=="Running" {print $1}' \
+    | sort
+}
+
+choose_replicas() {
+  local stage="$1"
+  local arr=($SCALE_VALUES)
+  local n=${#arr[@]}
+
+  if [ "$n" -le 0 ]; then
+    echo "1"
+    return
+  fi
+
+  echo "${arr[$((stage % n))]}"
+}
+
+scale_ue() {
+  local replicas="$1"
+
+  log "scale deployment ue -> replicas=$replicas"
+
+  kubectl scale deployment ue --replicas="$replicas"
+  kubectl rollout status deployment/ue --timeout=240s
+
+  local start now count
+  start=$(date +%s)
+
+  while true; do
+    count=$(get_ready_pods | wc -l | tr -d ' ')
+    now=$(date +%s)
+
+    if [ "$count" -eq "$replicas" ]; then
+      break
+    fi
+
+    if [ $((now - start)) -gt 240 ]; then
+      echo "ERROR: timeout waiting ready pods. expected=$replicas got=$count"
+      kubectl get pods -l app=ue,role=ue -o wide
+      exit 1
+    fi
+
+    sleep 3
+  done
+
+  log "ready pods=$count; warmup=${WARMUP_AFTER_SCALE_S}s"
+  sleep "$WARMUP_AFTER_SCALE_S"
+}
+
+slot_to_teid() {
+  local slot="$1"
+  echo $((1 + 10 * slot))
+}
+
+slot_to_ue_ip() {
+  local slot="$1"
+  echo "10.250.0.$((slot + 1))"
+}
+
+slot_used() {
+  local s="$1"
+  local p
+
+  for p in "${!POD_SLOT[@]}"; do
+    if [ "${POD_SLOT[$p]}" = "$s" ]; then
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+first_free_slot() {
+  local s
+
+  for s in $(seq 0 $((MAX_UES - 1))); do
+    if ! slot_used "$s"; then
+      echo "$s"
+      return
+    fi
+  done
+
+  echo "ERROR: no free TEID slot. MAX_UES=$MAX_UES" >&2
+  exit 1
+}
+
+update_pod_inventory() {
+  local stage="$1"
+  local round="$2"
+  local elapsed="$3"
+  shift 3
+
+  local pods=("$@")
+  declare -A CURRENT=()
+
+  local p slot teid ue_ip
+
+  for p in "${pods[@]}"; do
+    CURRENT["$p"]=1
+
+    if [ -z "${POD_SLOT[$p]+x}" ]; then
+      slot="$(first_free_slot)"
+      POD_SLOT["$p"]="$slot"
+
+      teid="$(slot_to_teid "$slot")"
+      ue_ip="$(slot_to_ue_ip "$slot")"
+
+      echo "$stage,$round,$elapsed,enter,$p,$slot,$teid,$ue_ip" >> "$OUT/pod_events.csv"
+      log "pod enter: pod=$p slot=$slot teid=$teid ue_ip=$ue_ip"
+    fi
+  done
+
+  for p in "${!POD_SLOT[@]}"; do
+    if [ -z "${CURRENT[$p]+x}" ]; then
+      slot="${POD_SLOT[$p]}"
+      teid="$(slot_to_teid "$slot")"
+      ue_ip="$(slot_to_ue_ip "$slot")"
+
+      echo "$stage,$round,$elapsed,exit,$p,$slot,$teid,$ue_ip" >> "$OUT/pod_events.csv"
+      log "pod exit: pod=$p slot=$slot teid=$teid ue_ip=$ue_ip"
+
+      unset POD_SLOT["$p"]
+      unset LAST_UE_LOG["$p"]
+    fi
+  done
+
+  for p in "${pods[@]}"; do
+    slot="${POD_SLOT[$p]}"
+    teid="$(slot_to_teid "$slot")"
+    ue_ip="$(slot_to_ue_ip "$slot")"
+
+    echo "$stage,$round,$elapsed,$p,$slot,$teid,$ue_ip" >> "$OUT/pod_inventory.csv"
+  done
+}
+
+split_clear() {
+  upf_read_stats True >/dev/null
+}
+
+split_read() {
+  local file="$1"
+
+  upf "sudo docker exec bess /opt/bess/bessctl/bessctl command module splitController read_stats SplitControllerCommandReadStatsArg '{\"clear\": False}'" \
+    > "$file" 2>&1 || true
+}
+
+collect_pfcp_sessions() {
+  local file="$1"
+  upf "curl -s localhost:8080/metrics | grep pfcp_sessions || true" > "$file" 2>&1 || true
+}
+
+collect_upf_pipeline() {
+  local file="$1"
+
+  upf "sudo docker exec bess /opt/bess/bessctl/bessctl show module splitController; echo; sudo docker exec bess /opt/bess/bessctl/bessctl show pipeline | grep -Ei 'pdrLookup|gtpuDecap|splitController|appQERLookup|sessionQERLookup|farLookup|executeFAR' || true" \
+    > "$file" 2>&1 || true
+}
+
+parse_last_sender_metrics() {
+  local file="$1"
+
+  if [ ! -f "$file" ]; then
+    echo "0,0,0,0,0"
+    return
+  fi
+
+  awk '
+    match($0, /head_infer=([0-9.]+)ms/, h) {head=h[1]}
+    match($0, /tx=([0-9.]+)ms/, t) {tx=t[1]}
+    match($0, /frags=([0-9]+)/, f) {frags=f[1]}
+    match($0, /sent=([0-9]+)/, s) {sent=s[1]}
+    match($0, /bytes=([0-9]+)/, b) {bytes=b[1]}
+    END {
+      if (head == "") head=0
+      if (tx == "") tx=0
+      if (frags == "") frags=0
+      if (sent == "") sent=0
+      if (bytes == "") bytes=0
+      print head "," tx "," frags "," sent "," bytes
+    }
+  ' "$file"
+}
+
+cpu_usage_pct() {
+  local pod="$1"
+
+  local u1 u2
+  u1=$(kubectl exec "$pod" -- bash -lc "awk '/usage_usec/ {print \$2}' /sys/fs/cgroup/cpu.stat" 2>/dev/null || echo 0)
+  sleep 0.5
+  u2=$(kubectl exec "$pod" -- bash -lc "awk '/usage_usec/ {print \$2}' /sys/fs/cgroup/cpu.stat" 2>/dev/null || echo 0)
+
+  awk -v a="$u1" -v b="$u2" 'BEGIN { printf "%.1f", ((b-a)/(0.5*1000000))*100 }'
+}
+
+decide_k_from_app() {
+  local method="$1"
+  local last_head="$2"
+  local last_tx="$3"
+
+  case "$method" in
+    static-k1) echo "1,static"; return ;;
+    static-k2) echo "2,static"; return ;;
+    static-k3) echo "3,static"; return ;;
+    static-k4) echo "4,static"; return ;;
+    static-k5) echo "5,static"; return ;;
+  esac
+
+  local tx_bad head_bad
+
+  tx_bad=$(awk -v x="$last_tx" -v th="$TX_BAD_MS" \
+    'BEGIN { print (x > th) ? 1 : 0 }')
+
+  head_bad=$(awk -v x="$last_head" -v th="$HEAD_BAD_MS" \
+    'BEGIN { print (x > th) ? 1 : 0 }')
+
+  if [ "$tx_bad" = "1" ] && [ "$head_bad" = "1" ]; then
+    echo "4,mixed_app_bad"
+  elif [ "$tx_bad" = "1" ]; then
+    echo "5,tx_bad"
+  elif [ "$head_bad" = "1" ]; then
+    echo "2,head_bad"
+  else
+    echo "3,normal"
+  fi
+}
+
+run_sender() {
+  local pod="$1"
+  local teid="$2"
+  local ue_ip="$3"
+  local k="$4"
+  local file="$5"
+
+  kubectl exec "$pod" -- bash -lc "
+    cd /app
+
+    python3 ue_sender.py \
+      --iface ${IFACE} \
+      --data-dir ${DATA_DIR} \
+      --k ${k} \
+      --quant ${QUANT} \
+      --fps ${SENDER_FPS} \
+      --loop ${SENDER_LOOP} \
+      --chunk ${CHUNK} \
+      --next-hop-mac ${NEXT_HOP_MAC} \
+      --n3-src ${N3_SRC} \
+      --upf-n3 ${UPF_N3} \
+      --teid ${teid} \
+      --ue-ip ${ue_ip} \
+      --mec-ip ${MEC_IP} \
+      --mec-port ${MEC_PORT} \
+      --device ${DEVICE}
+  " > "$file" 2>&1 || true
+}
+
+start_chaos_stage() {
+  local stage="$1"
+  local replicas="$2"
+
+  local chaos_run_id="${RUN_ID}-stage${stage}-replicas${replicas}"
+  local chaos_seed=$((CHAOS_SEED + stage))
+
+  log "start chaos stage=$stage replicas=$replicas seed=$chaos_seed"
+
+  (
+    cd "$ROOT/chaos-on-ue"
+
+    CHAOS_SEED="$chaos_seed" \
+    CHAOS_RUN_ID="$chaos_run_id" \
+    CHAOS_DURATION_S="$STAGE_DURATION_S" \
+    python3 run_ue_chaos_profile.py
+  ) > "$OUT/chaos_stage_${stage}.log" 2>&1 &
+
+  CHAOS_PID=$!
+}
+
+wait_chaos_stage() {
+  local stage="$1"
+
+  if [ -n "$CHAOS_PID" ]; then
+    log "wait chaos stage=$stage"
+    wait "$CHAOS_PID" || true
+    CHAOS_PID=""
+  fi
+
+  local trace
+  trace=$(find "$ROOT/chaos-on-ue" -maxdepth 1 -name "ue_chaos_trace_${RUN_ID}-stage${stage}-*.csv" | head -1 || true)
+
+  if [ -n "$trace" ] && [ -f "$trace" ]; then
+    cp "$trace" "$OUT/"
+  fi
+}
+
+cleanup_chaos() {
+  log "cleanup chaos objects"
+  kubectl delete stresschaos --all -A --ignore-not-found=true >/dev/null 2>&1 || true
+  kubectl delete networkchaos --all -A --ignore-not-found=true >/dev/null 2>&1 || true
+}
+
+trap 'cleanup_chaos' EXIT
+
+{
+  echo "method=$METHOD"
+  echo "run_id=$RUN_ID"
+  echo "chaos_seed=$CHAOS_SEED"
+  echo "stages=$STAGES"
+  echo "stage_duration_s=$STAGE_DURATION_S"
+  echo "period_s=$PERIOD_S"
+  echo "scale_values=$SCALE_VALUES"
+  echo "warmup_after_scale_s=$WARMUP_AFTER_SCALE_S"
+  echo "sender_fps=$SENDER_FPS"
+  echo "sender_loop=$SENDER_LOOP"
+  echo "head_bad_ms=$HEAD_BAD_MS"
+  echo "tx_bad_ms=$TX_BAD_MS"
+} > "$OUT/metadata.txt"
+
+echo "stage,elapsed_s,replicas" > "$OUT/scale_events.csv"
+echo "stage,round,elapsed_s,event,pod,slot,teid,ue_ip" > "$OUT/pod_events.csv"
+echo "stage,round,elapsed_s,pod,slot,teid,ue_ip" > "$OUT/pod_inventory.csv"
+echo "stage,round,ts,elapsed_s,pod,slot,method,teid,ue_ip,cpu_pct,last_head_ms,last_tx_ms,last_frags,last_sent,last_bytes,k,reason,ue_log_file,split_stats_file" \
+  > "$OUT/rounds.csv"
+
+log "output: $OUT"
+log "method: $METHOD"
+
+log "checking PFCP sessions"
+collect_pfcp_sessions "$OUT/pfcp_sessions_start.txt"
+
+log "collecting UPF pipeline"
+collect_upf_pipeline "$OUT/upf_pipeline_start.txt"
+
+GLOBAL_START=$(date +%s)
+
+for stage in $(seq 0 $((STAGES - 1))); do
+  replicas="$(choose_replicas "$stage")"
+  stage_dir="$OUT/stage_$(printf '%02d' "$stage")_replicas_${replicas}"
+  mkdir -p "$stage_dir"
+
+  elapsed=$(( $(date +%s) - GLOBAL_START ))
+  echo "$stage,$elapsed,$replicas" >> "$OUT/scale_events.csv"
+
+  scale_ue "$replicas"
+
+  mapfile -t pods < <(get_ready_pods)
+  update_pod_inventory "$stage" "-1" "$elapsed" "${pods[@]}"
+
+  collect_pfcp_sessions "$stage_dir/pfcp_sessions_after_scale.txt"
+
+  split_clear > "$stage_dir/split_clear_before_stage.txt" 2>&1 || true
+
+  start_chaos_stage "$stage" "$replicas"
+
+  stage_start=$(date +%s)
+  round=0
+
+  while true; do
+    now=$(date +%s)
+    stage_elapsed=$((now - stage_start))
+    global_elapsed=$((now - GLOBAL_START))
+
+    if [ "$stage_elapsed" -ge "$STAGE_DURATION_S" ]; then
+      break
+    fi
+
+    round_dir="$stage_dir/round_$(printf '%03d' "$round")"
+    mkdir -p "$round_dir"
+
+    mapfile -t pods < <(get_ready_pods)
+    update_pod_inventory "$stage" "$round" "$global_elapsed" "${pods[@]}"
+
+    log "stage=$stage round=$round replicas=$replicas active_pods=${#pods[@]} elapsed=${global_elapsed}s"
+
+    split_clear > "$round_dir/split_clear.txt" 2>&1 || true
+
+    pids=()
+
+    for pod in "${pods[@]}"; do
+      slot="${POD_SLOT[$pod]}"
+      teid="$(slot_to_teid "$slot")"
+      ue_ip="$(slot_to_ue_ip "$slot")"
+
+      last_head=0
+      last_tx=0
+      last_frags=0
+      last_sent=0
+      last_bytes=0
+
+      if [ -n "${LAST_UE_LOG[$pod]+x}" ]; then
+        metrics="$(parse_last_sender_metrics "${LAST_UE_LOG[$pod]}")"
+        last_head="$(echo "$metrics" | cut -d',' -f1)"
+        last_tx="$(echo "$metrics" | cut -d',' -f2)"
+        last_frags="$(echo "$metrics" | cut -d',' -f3)"
+        last_sent="$(echo "$metrics" | cut -d',' -f4)"
+        last_bytes="$(echo "$metrics" | cut -d',' -f5)"
+      fi
+
+      cpu="$(cpu_usage_pct "$pod")"
+
+      decision="$(decide_k_from_app "$METHOD" "$last_head" "$last_tx")"
+      k="$(echo "$decision" | cut -d',' -f1)"
+      reason="$(echo "$decision" | cut -d',' -f2)"
+
+      ue_log="$round_dir/ue_slot${slot}_teid${teid}.log"
+      split_file="$round_dir/split_stats.txt"
+
+      echo "$stage,$round,$(date +%s),$global_elapsed,$pod,$slot,$METHOD,$teid,$ue_ip,$cpu,$last_head,$last_tx,$last_frags,$last_sent,$last_bytes,$k,$reason,$ue_log,$split_file" \
+        >> "$OUT/rounds.csv"
+
+      log "  pod=$pod slot=$slot teid=$teid cpu=$cpu last_head=$last_head last_tx=$last_tx -> k=$k reason=$reason"
+
+      run_sender "$pod" "$teid" "$ue_ip" "$k" "$ue_log" &
+      pids+=("$!")
+
+      LAST_UE_LOG["$pod"]="$ue_log"
+    done
+
+    for pid in "${pids[@]}"; do
+      wait "$pid" || true
+    done
+
+    split_read "$round_dir/split_stats.txt"
+
+    round=$((round + 1))
+    sleep "$PERIOD_S"
+  done
+
+  wait_chaos_stage "$stage"
+
+  split_read "$stage_dir/split_stats_stage_final.txt"
+  collect_pfcp_sessions "$stage_dir/pfcp_sessions_stage_end.txt"
+done
+
+log "collecting final UPF state"
+collect_pfcp_sessions "$OUT/pfcp_sessions_end.txt"
+collect_upf_pipeline "$OUT/upf_pipeline_end.txt"
+split_read "$OUT/split_stats_final.txt"
+
+log "done"
+echo "RESULTS_DIR=$OUT"
+find "$OUT" -maxdepth 3 -type f | sort

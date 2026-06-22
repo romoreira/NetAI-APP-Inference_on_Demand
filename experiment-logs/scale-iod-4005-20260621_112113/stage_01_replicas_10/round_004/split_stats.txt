@@ -1,0 +1,61 @@
+response: statistics {
+  teid: 1
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 11
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+statistics {
+  teid: 21
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+statistics {
+  teid: 31
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 41
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 51
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+statistics {
+  teid: 61
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+statistics {
+  teid: 71
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 81
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+statistics {
+  teid: 91
+  k: 3
+  packets: 6310
+  bytes: 8595430
+}
+

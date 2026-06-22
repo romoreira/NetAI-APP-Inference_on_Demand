@@ -1,0 +1,35 @@
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done
+Run ID: scale-static-k5-4003-20260621_065445-stage2-replicas3
+UE pods: ['ue-574df75565-7h9hm', 'ue-574df75565-rkptw', 'ue-574df75565-rt72s']
+Generated events: 13
+Pods with no chaos: 0
+[BEGIN] pod=ue-574df75565-rt72s event=0 cpu=45 latency=14ms jitter=15ms duration=30s
+[BEGIN] pod=ue-574df75565-rkptw event=0 cpu=29 latency=56ms jitter=5ms duration=35s
+[BEGIN] pod=ue-574df75565-rt72s event=1 cpu=39 latency=49ms jitter=15ms duration=45s
+[BEGIN] pod=ue-574df75565-rkptw event=1 cpu=45 latency=44ms jitter=7ms duration=43s
+[END] pod=ue-574df75565-rt72s event=0
+[END] pod=ue-574df75565-rkptw event=0
+[END] pod=ue-574df75565-rt72s event=1
+[BEGIN] pod=ue-574df75565-rt72s event=2 cpu=32 latency=41ms jitter=14ms duration=44s
+[END] pod=ue-574df75565-rkptw event=1
+[BEGIN] pod=ue-574df75565-rkptw event=2 cpu=36 latency=28ms jitter=16ms duration=20s
+[BEGIN] pod=ue-574df75565-rt72s event=3 cpu=35 latency=26ms jitter=6ms duration=29s
+[BEGIN] pod=ue-574df75565-7h9hm event=0 cpu=74 latency=67ms jitter=13ms duration=24s
+[END] pod=ue-574df75565-rkptw event=2
+[BEGIN] pod=ue-574df75565-rt72s event=4 cpu=31 latency=34ms jitter=13ms duration=32s
+[END] pod=ue-574df75565-rt72s event=2
+[BEGIN] pod=ue-574df75565-rt72s event=5 cpu=37 latency=47ms jitter=15ms duration=15s
+[BEGIN] pod=ue-574df75565-7h9hm event=1 cpu=63 latency=50ms jitter=4ms duration=31s
+[END] pod=ue-574df75565-7h9hm event=0
+[END] pod=ue-574df75565-rt72s event=5
+[END] pod=ue-574df75565-rt72s event=3
+[BEGIN] pod=ue-574df75565-7h9hm event=2 cpu=33 latency=33ms jitter=15ms duration=34s
+[END] pod=ue-574df75565-rt72s event=4
+[END] pod=ue-574df75565-7h9hm event=1
+[BEGIN] pod=ue-574df75565-rkptw event=3 cpu=20 latency=60ms jitter=13ms duration=40s
+[END] pod=ue-574df75565-7h9hm event=2
+[END] pod=ue-574df75565-rkptw event=3
+OK: trace saved to ue_chaos_trace_scale-static-k5-4003-20260621_065445-stage2-replicas3.csv
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done

@@ -1,0 +1,4 @@
+run_id,pod,event_id,planned_begin_offset_s,duration_s,cpu_load,latency_ms,jitter_ms,actual_begin_ts,actual_end_ts,no_chaos,status,error
+scale-static-k3-5001-20260620_191748-stage0-replicas1,ue-574df75565-7h9hm,0,29.559,37,75,53,14,1781983138.924637,1781983176.499838,0,completed,
+scale-static-k3-5001-20260620_191748-stage0-replicas1,ue-574df75565-7h9hm,1,108.352,43,63,47,8,1781983217.787871,1781983261.332292,0,completed,
+scale-static-k3-5001-20260620_191748-stage0-replicas1,ue-574df75565-7h9hm,2,130.509,24,31,65,5,1781983239.944908,1781983264.486682,0,completed,

@@ -1,0 +1,11 @@
+master_ts=20260621_012121
+seeds=4001 4002 4003 4004 4005 4006 4007 4008 4009 4010
+methods=static-k1 static-k2 static-k3 static-k4 static-k5 iod
+stages=5
+stage_duration_s=180
+period_s=15
+sender_loop=5
+sender_fps=1
+scale_pool=1 2 3 4 5 6 7 8 9 10
+head_bad_ms=80
+tx_bad_ms=22

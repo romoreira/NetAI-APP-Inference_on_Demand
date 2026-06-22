@@ -1,0 +1,5 @@
+stage,round,elapsed_s,event,pod,slot,teid,ue_ip
+0,-1,0,enter,ue-574df75565-59nj4,0,1,10.250.0.1
+0,-1,0,enter,ue-574df75565-7h9hm,1,11,10.250.0.2
+0,-1,0,enter,ue-574df75565-dw5wg,2,21,10.250.0.3
+0,-1,0,enter,ue-574df75565-nx576,3,31,10.250.0.4

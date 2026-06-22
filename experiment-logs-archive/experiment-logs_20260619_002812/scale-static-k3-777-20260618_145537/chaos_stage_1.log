@@ -1,0 +1,31 @@
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done
+Run ID: scale-static-k3-777-20260618_145537-stage1-replicas1
+UE pods: ['ue-574df75565-7h9hm']
+Generated events: 11
+Pods with no chaos: 0
+[BEGIN] pod=ue-574df75565-7h9hm event=0 cpu=55 latency=54ms jitter=13ms duration=18s
+[END] pod=ue-574df75565-7h9hm event=0
+[BEGIN] pod=ue-574df75565-7h9hm event=1 cpu=53 latency=67ms jitter=6ms duration=38s
+[BEGIN] pod=ue-574df75565-7h9hm event=2 cpu=68 latency=69ms jitter=10ms duration=14s
+[END] pod=ue-574df75565-7h9hm event=2
+[BEGIN] pod=ue-574df75565-7h9hm event=3 cpu=57 latency=44ms jitter=16ms duration=37s
+[BEGIN] pod=ue-574df75565-7h9hm event=4 cpu=64 latency=67ms jitter=17ms duration=17s
+[END] pod=ue-574df75565-7h9hm event=1
+[BEGIN] pod=ue-574df75565-7h9hm event=5 cpu=48 latency=49ms jitter=9ms duration=15s
+[END] pod=ue-574df75565-7h9hm event=4
+[END] pod=ue-574df75565-7h9hm event=5
+[BEGIN] pod=ue-574df75565-7h9hm event=6 cpu=38 latency=34ms jitter=19ms duration=12s
+[END] pod=ue-574df75565-7h9hm event=3
+[END] pod=ue-574df75565-7h9hm event=6
+[BEGIN] pod=ue-574df75565-7h9hm event=7 cpu=18 latency=34ms jitter=10ms duration=36s
+[BEGIN] pod=ue-574df75565-7h9hm event=8 cpu=60 latency=49ms jitter=16ms duration=25s
+[BEGIN] pod=ue-574df75565-7h9hm event=9 cpu=45 latency=30ms jitter=16ms duration=13s
+[BEGIN] pod=ue-574df75565-7h9hm event=10 cpu=45 latency=59ms jitter=10ms duration=44s
+[END] pod=ue-574df75565-7h9hm event=9
+[END] pod=ue-574df75565-7h9hm event=8
+[END] pod=ue-574df75565-7h9hm event=7
+[END] pod=ue-574df75565-7h9hm event=10
+OK: trace saved to ue_chaos_trace_scale-static-k3-777-20260618_145537-stage1-replicas1.csv
+[CLEANUP] deleting previous StressChaos and NetworkChaos objects
+[CLEANUP] done

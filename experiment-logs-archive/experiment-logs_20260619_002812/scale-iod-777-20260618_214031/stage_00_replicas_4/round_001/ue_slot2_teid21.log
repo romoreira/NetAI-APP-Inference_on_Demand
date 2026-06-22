@@ -1,0 +1,7 @@
+Defaulted container "ue" out of: ue, setup-n3 (init)
+[UE-IPV4] iface=net1 mac=52:4f:b6:29:24:fc teid=21 inner=10.250.0.3:40001->192.168.90.2:5001 k=5 quant=fp16 device=cuda dataset=2000 frames
+[UE-IPV4] frame=0 head_infer=162.3ms tx=5.1ms bytes=410780 frags=316 sent=316
+[UE-IPV4] frame=1 head_infer=4.7ms tx=5.2ms bytes=410780 frags=316 sent=316
+[UE-IPV4] frame=2 head_infer=4.7ms tx=5.2ms bytes=410780 frags=316 sent=316
+[UE-IPV4] frame=3 head_infer=4.7ms tx=12.6ms bytes=410780 frags=316 sent=316
+[UE-IPV4] frame=4 head_infer=4.8ms tx=4.8ms bytes=410780 frags=316 sent=316

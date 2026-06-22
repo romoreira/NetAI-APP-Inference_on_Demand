@@ -1,0 +1,19 @@
+response: statistics {
+  teid: 1
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 41
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+statistics {
+  teid: 61
+  k: 5
+  packets: 1580
+  bytes: 2153440
+}
+
